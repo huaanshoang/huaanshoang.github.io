@@ -212,7 +212,7 @@
 <div id="divActive" class="cangiua-divActive">
 
 <video  id="myVideo" controls >
-  <source id="mp4_src" src="./mp4/y_1_1.mp4" type="video/mp4">
+  <source id="mp4_src" src="videomp4/s1/y_1_1.mp4" type="video/mp4">
 </video>
 
 </div>
@@ -243,7 +243,7 @@
             document.querySelector(".para").innerHTML='';
             detrong2br();
             ndluu='';
-            tepmo="./linkvideo/"+chonSlsoVl+'_'+chonBaiStr+".txt";
+            tepmo="linkvideo/s"+chonSlsoVl+'/'+chonSlsoVl+'_'+chonBaiStr+".txt";
             fetch(tepmo)
                 .then(reponse => reponse.text())
                 .then(text => document.getElementById("divActive").innerHTML=text);
@@ -254,7 +254,7 @@
             document.querySelector(".para").innerHTML="";
             detrong2br();
             ndluu='';
-            tepmo="./practice/"+chonSlsoVl+'_'+chonBaiStr+".html";
+            tepmo="practice/s"+chonSlsoVl+'/'+chonSlsoVl+'_'+chonBaiStr+".html";
             fetch(tepmo)
                 .then(reponse => reponse.text())
                 .then(text => document.getElementById("divActive").innerHTML=text);
