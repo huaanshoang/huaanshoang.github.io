@@ -162,7 +162,6 @@
     <input type="radio" id="Pa_mot" onclick="chonSlpart()" name="Slpa" value="video" checked>Video   
     <input type="radio" id="Pa_hai" onclick="chonSlpart()" name="Slpa" value="textv">Practice   
     <input type="radio" id="Pa_ba" onclick="chonSlpart()" name="Slpa" value="gramar">Gramar
-    <input type="radio" id="Pa_bon" onclick="chonSlpart()" name="Slpa" value="practice">Test
     <script> 
     function chonSlpart() {    
         if(document.getElementById('Pa_mot').checked) {   
@@ -176,10 +175,6 @@
         if(document.getElementById('Pa_ba').checked) {   
             chonSlpaVl='3';
             xuliviechoc();  
-        }
-        if(document.getElementById('Pa_bon').checked) {   
-            chonSlpaVl='4';
-            xuliviechoc();   
         }
     }       
 </script>
@@ -261,12 +256,6 @@
             document.getElementById("divActive").className='tudo';
         }
         if (chonSlpaVl=='3'){
-            document.querySelector(".para").innerHTML="";
-            detrong2br();
-            ndluu='';
-
-        }
-        if (chonSlpaVl=='4'){
             document.querySelector(".para").innerHTML="";
             detrong2br();
             ndluu='';
