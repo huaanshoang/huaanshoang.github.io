@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Streamlines</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    .cangiua-divActive{
+        text-align: center;
+    }
+    .fixed-header{
+        top: 0;
+        width: 99%;
+        position: fixed;        
+        background-color:rgba(74, 207, 136);
+        padding: 15px 0;
+        text-align: center;
+    }
+    .footer{
+        /* width: 30px; */
+        text-align: center;
+        color:white;
+        bottom: 0;
+        background-color:rgb(53, 182, 53);
+    }    
+
+    p {font-size: 14pt;}
+    .f-grid {
+        display: flex;
+        justify-content: space-between;
+        margin-left:-0.5rem;
+        flex-flow: row wrap;}
+    .f-grid-col {
+        flex: 3 0;
+        background-color: rgba(184,245,114,0.883);
+        margin-left: 0.5rem;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        font-size: 13pt;}
+    .f-grid-colkhac{
+        flex: 3 0;
+        background-color: rgba(230, 208, 224, 0.883);
+        margin-left: 0.5rem;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        font-size: 13pt;}
+    .f-grid-1dong{
+        background-color: rgb(147, 147, 224);
+        color:yellow;
+        text-align: center;
+    
+    }
+
+    #circlein {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: auto;
+    /* justify-content: center; */
+    /*box-shadow: 0px -2px 15px #E0FF94;*/
+    box-shadow: 1px 1px 15px blueviolet;
+    } 
+.obj {
+    justify-content: center;
+    height: 100%;
+    margin-left: auto;
+}
+.mic-icon {
+    height: 12px;
+    position: center;
+    margin-top:9px;
+    margin-left:1px;
+} 
+
+    /* .slten{font-size: 14px;} */
+    .tenbai1 {
+        font-size: 24px;
+        color: rgb(124, 8, 8);
+    }
+    
+    .tenbai2 {
+        font-size: 16px;
+        color: blue;
+    }
+    .words {
+        color: yellow;
+    }
+
+</style>
+<script>var chonSlsoVl='1'; var chonBaiStr='1'; var chonSlpaVl='1';var chonc='';var values = [];</script>
+<script>var tenidl='';var sl=1; var ndluu=""; var giongnoi='en';var iddluu='p1';var lan=0;</script>
+
+</head>
+<body>
+<header class="fixed-header">
+<a class="slten" ;>Streamline : 
+    <input type="radio" id="Sl_mot" onclick="chonSlso()" name="Slso" value=slso checked>1   
+    <input type="radio" id="Sl_hai" onclick="chonSlso()" name="Slso" value=slso>2   
+    <input type="radio" id="Sl_ba" onclick="chonSlso()" name="Slso" value=slso>3
+</a>
+<script> 
+    function chonSlso() {    
+        if(document.getElementById('Sl_mot').checked) {   
+            chonSlsoVl='1';
+            var uchon = document.getElementById("unit_so");
+            while (uchon.length > 0) {
+                uchon.options[0].remove();
+            }
+            themoptions(chonSlsoVl);
+            xuliviechoc();
+        }
+
+        if(document.getElementById('Sl_hai').checked) {   
+            chonSlsoVl='2';
+            var uchon = document.getElementById("unit_so");
+            while (uchon.length > 0) {
+                uchon.options[0].remove();
+            }
+            themoptions(chonSlsoVl);
+            xuliviechoc();   
+        }   
+        if(document.getElementById('Sl_ba').checked) {   
+            chonSlsoVl='3';
+            var uchon = document.getElementById("unit_so");
+            while (uchon.length > 0) {
+                uchon.options[0].remove();
+            }
+            themoptions(chonSlsoVl);
+            xuliviechoc();   
+        }
+    }       
+</script>   
+<p>
+<a class="tenbai1";>Unit :
+    <select name="chonunit" id="unit_so">
+        <script>
+        if (chonSlsoVl=='1'){max=104;}
+        if (chonSlsoVl=='2'){max=122;}
+        if (chonSlsoVl=='3'){max=96;}
+        var values = [];
+        for (i=1; i<=max; ++i){
+            values.push(i.toString());
+        }
+        var bselect = document.getElementById('unit_so');
+        values.forEach(value =>{
+            var option = document.createElement('option');
+            option.innerHTML = value;
+            option.value = value;
+            bselect.appendChild(option);
+        })
+        </script> 
+    </select>
+    <script>
+        var uchon = document.getElementById("unit_so");
+        uchon.onchange=function(){
+            chonBaiStr=(this.selectedIndex+1);
+            xuliviechoc();
+        }
+    </script>
+    
+</a>
+    <input type="radio" id="Pa_mot" onclick="chonSlpart()" name="Slpa" value="video" checked>Video   
+    <input type="radio" id="Pa_hai" onclick="chonSlpart()" name="Slpa" value="textv">Practice   
+    <input type="radio" id="Pa_ba" onclick="chonSlpart()" name="Slpa" value="gramar">Gramar
+    <input type="radio" id="Pa_bon" onclick="chonSlpart()" name="Slpa" value="practice">Test
+    <script> 
+    function chonSlpart() {    
+        if(document.getElementById('Pa_mot').checked) {   
+            chonSlpaVl='1';
+            xuliviechoc();   
+        }   
+        if(document.getElementById('Pa_hai').checked) {   
+            chonSlpaVl='2';
+            xuliviechoc(); 
+        }   
+        if(document.getElementById('Pa_ba').checked) {   
+            chonSlpaVl='3';
+            xuliviechoc();  
+        }
+        if(document.getElementById('Pa_bon').checked) {   
+            chonSlpaVl='4';
+            xuliviechoc();   
+        }
+    }       
+</script>
+</p>
+   
+<!-- <p>
+<button class="tenbai2" onclick="validate();">Validate</button>
+</p> -->
+    <div class="words">
+        <div class="obj"> 
+            <div class="button" id="circlein">
+                <svg class="mic-icon" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000"
+                    enable-background="new 0 0 1000 1000" xml:space="preserve" style="fill:#1E2D70">
+                    <g>
+                        <path
+                            d="M500,683.8c84.6,0,153.1-68.6,153.1-153.1V163.1C653.1,78.6,584.6,10,500,10c-84.6,0-153.1,68.6-153.1,153.1v367.5C346.9,615.2,415.4,683.8,500,683.8z M714.4,438.8v91.9C714.4,649,618.4,745,500,745c-118.4,0-214.4-96-214.4-214.4v-91.9h-61.3v91.9c0,141.9,107.2,258.7,245,273.9v124.2H346.9V990h306.3v-61.3H530.6V804.5c137.8-15.2,245-132.1,245-273.9v-91.9H714.4z" />
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </div>
+<hr>
+</header>
+<a id="detrongorde2br">
+
+</a>
+<br><br><br><br><br><br><br><br><br><br>
+
+<div id="divActive" class="cangiua-divActive">
+
+<video  id="myVideo" controls >
+  <source id="mp4_src" src="./mp4/y_1_1.mp4" type="video/mp4">
+</video>
+
+</div>
+
+<script>
+    function themoptions(chonSlsoVl){
+        if (chonSlsoVl=='1'){max=104;}
+        if (chonSlsoVl=='2'){max=122;}
+        if (chonSlsoVl=='3'){max=96;}
+        var values = [];
+        for (i=1; i<=max; ++i){
+            values.push(i.toString());
+        }
+        var bselect = document.getElementById('unit_so');
+        values.forEach(value =>{
+            var option = document.createElement('option');
+            option.innerHTML = value;
+            option.value = value;
+            bselect.appendChild(option);
+        })
+    }
+</script>
+
+<script>
+    function xuliviechoc(){
+        //alert(chonSlsoVl+'_'+chonBaiStr+'_'+chonSlpaVl);
+        if (chonSlpaVl=='1'){
+            document.querySelector(".para").innerHTML='';
+            detrong2br();
+            ndluu='';
+            tepmo="./linkvideo/"+chonSlsoVl+'_'+chonBaiStr+".txt";
+            fetch(tepmo)
+                .then(reponse => reponse.text())
+                .then(text => document.getElementById("divActive").innerHTML=text);
+            document.getElementById("divActive").className='cangiua-divActive';
+        }
+
+        if (chonSlpaVl=='2'){
+            document.querySelector(".para").innerHTML="";
+            detrong2br();
+            ndluu='';
+            tepmo="./practice/"+chonSlsoVl+'_'+chonBaiStr+".html";
+            fetch(tepmo)
+                .then(reponse => reponse.text())
+                .then(text => document.getElementById("divActive").innerHTML=text);
+            document.getElementById("divActive").className='tudo';
+        }
+        if (chonSlpaVl=='3'){
+            document.querySelector(".para").innerHTML="";
+            detrong2br();
+            ndluu='';
+
+        }
+        if (chonSlpaVl=='4'){
+            document.querySelector(".para").innerHTML="";
+            detrong2br();
+            ndluu='';
+
+        }
+
+    }     
+</script>
+
+<hr>
+<br><br><br>
+<script> //Ham 1 
+    function checkButton() {   
+        if(document.getElementById('mot').checked) {   
+            sl=1;   
+        }   
+        if(document.getElementById('ba').checked) {   
+            sl=3;   
+        }   
+        if(document.getElementById('nam').checked) {   
+            sl=5;   
+        }
+    }       
+</script>   
+
+<script> //Ham 2
+    function layid(tenidl){
+        document.getElementById(tenidl).className='f-grid-colkhac';
+        if (lan>0){document.getElementById(iddluu).className='f-grid-col';}
+        iddluu=tenidl;
+        lan=lan+1;
+        var idSo = tenidl.slice(1); //ten id con lai sau khi bo di 1 ki tu. Vd 'b124' bo di 1 ki tu dau thi con lai 124 
+        var message=document.getElementById(tenidl).innerHTML;
+        ndluu=message=document.getElementById(tenidl).innerHTML;
+        for (let i = 1; i <= sl; i++) {
+            if (idSo % 2 == 0){giongnoi='en-GB';} else {giongnoi='en';}
+                say(message, giongnoi);
+        }
+    }
+</script>
+
+<script> //Ham 3
+    function saycb(){
+        for (let j = 1; j <= sl; j++) {
+        for (let i = 1; i <= 16; i++) {
+            var tenid='p'+i.toString();
+            var message=document.getElementById(tenid).innerHTML;
+            if (i % 2 == 0){giongnoi='en-GB';} else {giongnoi='en';}
+                say(message,giongnoi);
+        }
+        }
+    }
+</script>
+
+<script> //Ham 4
+    function say(message,giongnoi){
+        message=message.replaceAll('<span style="color:blue">', '');
+        message=message.replaceAll('<span style="color:red">', '');
+        message=message.replaceAll('</span>', '');
+        message=message.replaceAll('</strong>','');
+        message=message.replaceAll('<strong>','');
+        message=message.replaceAll("<em>","");
+        message=message.replaceAll("</em>","");
+        message=message.replaceAll("<u>","");
+        message=message.replaceAll("</u>","");
+        message=message.replaceAll('<span style="color:#0070C0"','');
+        message=message.replaceAll('<span lang="EN" style="color:#0070C0"','');
+        message=message.slice(message.indexOf(":")+1, -1);
+        message=message.trim();
+        ndluu=message;
+        let speech = new SpeechSynthesisUtterance(message);
+        speech.lang = giongnoi;
+        window.speechSynthesis.speak(speech);
+    }
+</script>              
+
+<script> //Ham 5 chuyen giong noi thanh text
+    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+    recognition.interimResults = true;
+    let p = document.createElement("p");
+    p.classList.add("para");
+    p.addEventListener("click", function() {
+        // document.querySelector(".para").innerHTML="";
+        danhgiacau(document.querySelector(".para").innerHTML);
+    });
+    let words = document.querySelector(".words");
+    words.appendChild(p);
+    let mic = document.querySelector("#circlein");
+    recognition.addEventListener("result", e => {
+        let interimTranscript = '';
+        for (let i = e.resultIndex, len = e.results.length; i < len; i++) {
+            let transcript = e.results[i][0].transcript;
+            console.log(transcript);
+            if (e.results[i].isFinal) {
+                speechToText = transcript;
+            } 
+        }
+        recognition.addEventListener('soundend', () => {
+            mic.style.backgroundColor = null;
+            }
+        );
+        document.querySelector(".para").innerHTML = speechToText + interimTranscript;
+        de2br();
+    })
+    mic.addEventListener("click", () => {
+        recognition.start();
+        mic.style.backgroundColor = "#6BD6E1";
+    })
+</script>
+<script> //Ham 6
+    function danhgiacau(textnoi){
+        // alert('vua nhap vao van ban noi voi nd la :'+textnoi+'--'+ndluu);
+        let chn=ndluu;
+        let chd=textnoi;
+        const chnList=chn.split(" ");
+        const chdList=chd.split(" ");
+        if ( (chdList.length)>(chnList.length) || ndluu==''){
+            alert('No idea!');    
+        }else{
+            sotud=0;
+            chdList.forEach(hamtien);
+            function hamtien(item){
+                    if (chn.indexOf(item)>=0){
+                        sotud= sotud+1;
+                    }    
+                }
+            tleptlamtron=(100*sotud/chnList.length).toFixed();
+            alert(tleptlamtron+'%');
+            // alert(sotud);
+        }
+
+        document.querySelector(".para").innerHTML="";
+        detrong2br();
+    }
+</script>
+
+<script> //Ham 7
+    function de2br(){
+        document.getElementById("detrongorde2br").innerHTML='<br><br>';
+    }
+</script>
+<script> //Ham 8
+    function detrong2br(){
+        document.getElementById("detrongorde2br").innerHTML='';
+    }
+</script>
+
+<div class="footer">
+<br>
+<h4>Website này do vantiensg2002@yahoo.com biên soạn chỉ để học tiếng Anh</h4>
+<br>
+</div>
+
+    
+</body>
+</html>
+
