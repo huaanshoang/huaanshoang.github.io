@@ -88,7 +88,7 @@
 
 </style>
 <script>var chonSlsoVl='1'; var chonBaiStr='1'; var chonSlpaVl='1';var chonc='';var values = [];</script>
-<script>var tenidl='';var sl=1; var ndluu=""; var giongnoi='en';var iddluu='p1';var lan=0;</script>
+<script>var tenidl='';var sl=1; var ndluu=""; var giongnoi='en';var iddluu='p1';var iddluu=null;</script>
 
 </head>
 <body>
@@ -243,6 +243,7 @@
                 .then(reponse => reponse.text())
                 .then(text => document.getElementById("divActive").innerHTML=text);
             document.getElementById("divActive").className='cangiua-divActive';
+            iddluu=null;
         }
 
         if (chonSlpaVl=='2'){
@@ -259,6 +260,7 @@
             document.querySelector(".para").innerHTML="";
             detrong2br();
             ndluu='';
+           iddluu=null;
 
         }
 
@@ -284,9 +286,8 @@
 <script> //Ham 2
     function layid(tenidl){
         document.getElementById(tenidl).className='f-grid-colkhac';
-        if (lan>0){document.getElementById(iddluu).className='f-grid-col';}
+        if (iddluu!=null){document.getElementById(iddluu).className='f-grid-col';}
         iddluu=tenidl;
-        lan=lan+1;
         var idSo = tenidl.slice(1); //ten id con lai sau khi bo di 1 ki tu. Vd 'b124' bo di 1 ki tu dau thi con lai 124 
         var message=document.getElementById(tenidl).innerHTML;
         ndluu=message=document.getElementById(tenidl).innerHTML;
