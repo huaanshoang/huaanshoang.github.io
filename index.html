@@ -88,7 +88,7 @@
 
 </style>
 <script>var chonSlsoVl='1'; var chonBaiStr='1'; var chonSlpaVl='1';var chonc='';var values = [];</script>
-<script>var tenidl='';var sl=1; var ndluu=""; var giongnoi='en';var iddluu='p1';var iddluu=null;</script>
+<script>var tenidl='';var slrepeat=1; var ndluu=""; var giongnoi='en';var iddluu='p1';var iddluu=null;</script>
 
 </head>
 <body>
@@ -206,7 +206,7 @@
 
 <div id="divActive" class="cangiua-divActive">
 
-<video width="400" height="240" id="myVideo" controls autoplay >
+<video width="400" height="240" id="myVideo" controls >
   <source id="mp4_src" src="videomp4/s1/y_1_1.mp4" type="video/mp4">
 </video>
 
@@ -244,6 +244,7 @@
                 .then(text => document.getElementById("divActive").innerHTML=text);
             document.getElementById("divActive").className='cangiua-divActive';
             iddluu=null;
+            slrepeat=1;
         }
 
         if (chonSlpaVl=='2'){
@@ -255,12 +256,15 @@
                 .then(reponse => reponse.text())
                 .then(text => document.getElementById("divActive").innerHTML=text);
             document.getElementById("divActive").className='tudo';
+            iddluu=null;
+            slrepeat=1;
         }
         if (chonSlpaVl=='3'){
             document.querySelector(".para").innerHTML="";
             detrong2br();
             ndluu='';
-           iddluu=null;
+            iddluu=null;
+            slrepeat=1;
 
         }
 
@@ -272,40 +276,35 @@
 <script> //Ham 1 
     function checkButton() {   
         if(document.getElementById('mot').checked) {   
-            sl=1;   
+            slrepeat=1;   
         }   
         if(document.getElementById('ba').checked) {   
-            sl=3;   
+            slrepeat=3;   
         }   
         if(document.getElementById('nam').checked) {   
-            sl=5;   
+            slrepeat=5;   
         }
     }       
 </script>   
 
 <script> //Ham 2
     function layid(tenidl){
-        if (tenidl != iddluu && iddluu=null){
-          document.getElementById(tenidl).className='f-grid-colkhac';
-        }
-        if (tenidl != iddluu && iddluu!=null){
-          document.getElementById(tenidl).className='f-grid-colkhac';
-          document.getElementById(iddluu).className='f-grid-col';
-        }
+        document.getElementById(tenidl).className='f-grid-colkhac';
+        if (tenidl != iddluu){document.getElementById(iddluu).className='f-grid-col';}
         iddluu=tenidl;
         var idSo = tenidl.slice(1); //ten id con lai sau khi bo di 1 ki tu. Vd 'b124' bo di 1 ki tu dau thi con lai 124 
         var message=document.getElementById(tenidl).innerHTML;
         ndluu=message=document.getElementById(tenidl).innerHTML;
-        for (let i = 1; i <= sl; i++) {
+        for (let i = 1; i <= slrepeat; i++) {
             if (idSo % 2 == 0){giongnoi='en-GB';} else {giongnoi='en';}
                 say(message, giongnoi);
         }
     }
 </script>
 
-<script> //Ham 3
+<!-- <script> //Ham 3
     function saycb(){
-        for (let j = 1; j <= sl; j++) {
+        for (let j = 1; j <= slrepeat; j++) {
         for (let i = 1; i <= 16; i++) {
             var tenid='p'+i.toString();
             var message=document.getElementById(tenid).innerHTML;
@@ -314,10 +313,10 @@
         }
         }
     }
-</script>
+</script> -->
 
 <script> //Ham 4
-    function say(message,giongnoi){
+   function say(message,giongnoi){
         message=message.replaceAll('<span style="color:blue">', '');
         message=message.replaceAll('<span style="color:red">', '');
         message=message.replaceAll('</span>', '');
@@ -409,14 +408,34 @@
         document.getElementById("detrongorde2br").innerHTML='';
     }
 </script>
+
+<script>//Ham viet lai
+    function saycb(){
+        var i=0;
+        let kk=null;
+        soptid=0
+        while (kk==null){
+            i=i+1;
+            let kk=document.getElementById("p"+i.toString());
+            if ((kk.id).indexOf('p')>=0) {
+                var message=kk.innerHTML;
+                if (i % 2 == 0){
+                    giongnoi='en-GB';
+                } else {
+                    giongnoi='en';}
+                say(message,giongnoi);
+            }
+        }
+    }
+</script>
+    
 <br><br><br>
 <div class="footer">
-<br>
+<br>    
 <h4>Website này do vantiensg2002@yahoo.com biên soạn chỉ để học tiếng Anh</h4>
 <br>
 </div>
 
-    
-</body>
+</body> 
 </html>
 
