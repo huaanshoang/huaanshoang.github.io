@@ -290,9 +290,10 @@
 <script> //Ham 2
     function layid(tenidl){
         document.getElementById(tenidl).className='f-grid-colkhac';
+        if (iddluu != tenidl && iddluu != null){
+          document.getElementById(iddluu).className='f-grid-col';
+        }
         iddluu=tenidl;
-        if (iddluu != tenidl){document.getElementById(iddluu).className='f-grid-col';}
-       
         var idSo = tenidl.slice(1); //ten id con lai sau khi bo di 1 ki tu. Vd 'b124' bo di 1 ki tu dau thi con lai 124 
         var message=document.getElementById(tenidl).innerHTML;
         ndluu=message=document.getElementById(tenidl).innerHTML;
