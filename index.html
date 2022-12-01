@@ -5,6 +5,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
+    body{
+        background-color:rgb(162, 163, 154);
+
+    }
     .cangiua-divActive{
         text-align: center;
     }
@@ -91,7 +95,7 @@
 <script>var tenidl='';var slrepeat=1; var ndluu=""; var giongnoi='en';var iddluu='p1';var iddluu=null;</script>
 
 </head>
-<body>
+<body id="body">
 <header class="fixed-header">
 <a class="slten" ;>Streamline : 
 
@@ -194,10 +198,6 @@
     }       
 </script>
 </p>
-   
-<!-- <p>
-<button class="tenbai2" onclick="validate();">Validate</button>
-</p> -->
 <div class="words">
     <div class="button" id="circlein">
         <img src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-25-512.png"
@@ -263,6 +263,8 @@
             // videodiv.parentNode.removeChild(videodiv); //parentNode la cha cua unit_so tu tim ra
 
             tepmo="./practice/s"+chonSlsoVl+'/'+chonSlsoVl+'_'+chonBaiStr+".html";
+            if (chonBaiStr%2==0){document.body.style.backgroundColor = "lightblue";
+            }else{document.body.style.backgroundColor = "rgb(231, 235, 211)";}
             fetch(tepmo)
                 .then(reponse => reponse.text())
                 .then(text => document.getElementById("divActive").innerHTML=text);
