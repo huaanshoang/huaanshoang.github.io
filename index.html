@@ -261,13 +261,18 @@
             ndluu='';
             // var videodiv = document.getElementById("myVideo");
             // videodiv.parentNode.removeChild(videodiv); //parentNode la cha cua unit_so tu tim ra
-
+            textdau='<sub><span styles="color:rgb(129, 68, 78)">Repeat: '+  
+                    '<input type="radio" id="mot" onclick=" checkButton()" name="slan" value="1" checked>'+
+                    '<label for="mot">1</label>'+
+                    '<input type="radio" id="ba" onclick=" checkButton()" name="slan" value="3">'+ 
+                    '<label for="ba">3</label>'+
+                    '<input type="radio" id="nam" onclick=" checkButton()" name="slan" value="5">'+
+                    '<label for="nam">5</label>'+
+                    '</span></sub>';
             tepmo="./practice/s"+chonSlsoVl+'/'+chonSlsoVl+'_'+chonBaiStr+".html";
-            // if (chonBaiStr%2==0){document.body.style.backgroundColor = "rgb(164, 198, 209)";
-            // }else{document.body.style.backgroundColor = "rgb(231, 235, 211)";}
             fetch(tepmo)
                 .then(reponse => reponse.text())
-                .then(text => document.getElementById("divActive").innerHTML=text);
+                .then(text => document.getElementById("divActive").innerHTML=textdau+text);
             document.getElementById("divActive").className='tudo';
             iddluu=null;
             slrepeat=1;
