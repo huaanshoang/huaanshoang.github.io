@@ -85,7 +85,10 @@
     .words {
         color: yellow;
     }
-
+    .slten{
+        font-size: 24px;
+        color:brown;
+    }
 </style>
 <script>var chonSlsoVl='1'; var chonBaiStr='1'; var chonSlpaVl='1';var chonc='';var values = [];</script>
 <script>var tenidl='';var slrepeat=1; var ndluu=""; var giongnoi='en';var iddluu='p1';var iddluu=null;</script>
@@ -93,7 +96,7 @@
 </head>
 <body id="body">
 <header class="fixed-header">
-<a class="slten" ;>New American Streamline : 
+<a class="slten" ;> New American Streamline : 
 
     <input type="radio" id="Sl_mot" onclick="chonSlso()" name="Slso" value=slso checked>   
     <label for="Sl_mot">1</label>
@@ -283,6 +286,15 @@
             ndluu='';
             iddluu=null;
             slrepeat=1;
+
+            ndpdf='<div><iframe '+
+                    'src="./grammar/b1.pdf" '+
+                    'frameBorder="0" '+
+                    'scrolling="auto" '+
+                    'height="400" '+
+                    'width="100%" > '+
+                '</iframe></div>';
+            document.getElementById("divActive").innerHTML=ndpdf;
 
         }
 
