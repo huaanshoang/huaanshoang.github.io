@@ -17,7 +17,6 @@
         text-align: center;
     }
     .footer{
-        /* width: 30px; */
         text-align: center;
         color:white;
         bottom: 0;
@@ -56,8 +55,6 @@
     height: 30px;
     border-radius: 50%;
     margin: auto;
-    /* justify-content: center; */
-    /*box-shadow: 0px -2px 15px #E0FF94;*/
     box-shadow: 1px 1px 15px blueviolet;
     } 
 .obj {
@@ -72,7 +69,6 @@
     margin-left:0px;
 } 
 
-    /* .slten{font-size: 14px;} */
     .tenbai1 {
         font-size: 24px;
         color: rgb(124, 8, 8);
@@ -86,7 +82,7 @@
         color: yellow;
     }
     .slten{
-        font-size: 20px;
+        font-size: 22px;
         color:brown;
     }
 </style>
@@ -117,6 +113,7 @@
                 uchon.options[0].remove();
             }
             themoptions(chonSlsoVl);
+            chonBaiStr='1';
             xuliviechoc();
         }
 
@@ -127,6 +124,7 @@
                 uchon.options[0].remove();
             }
             themoptions(chonSlsoVl);
+            chonBaiStr='1';
             xuliviechoc();   
         }   
         if(document.getElementById('Sl_ba').checked) {   
@@ -136,6 +134,7 @@
                 uchon.options[0].remove();
             }
             themoptions(chonSlsoVl);
+            chonBaiStr='1';
             xuliviechoc();   
         }
     }       
@@ -213,9 +212,9 @@
 
 <div id="divActive" class="cangiua-divActive">
 
-<video width="400" height="240" id="myVideo" controls autoplay>
+<!-- <video width="400" height="240" id="myVideo" controls autoplay>
   <source id="mp4_src" src="videomp4/s1/y_1_1.mp4" type="video/mp4">
-</video>
+</video> -->
 
 </div>
 
@@ -240,7 +239,6 @@
 
 <script>
     function xuliviechoc(){
-        //alert(chonSlsoVl+'_'+chonBaiStr+'_'+chonSlpaVl);
         if (chonSlpaVl=='1'){
             document.querySelector(".para").innerHTML='';
             detrong2br();
@@ -249,10 +247,6 @@
                 '<source id="./mp4_src" src="videomp4/s'+chonSlsoVl+'/y_1_'+chonBaiStr+'.mp4" type="video/mp4">'+
                 '</video>';
             document.getElementById("divActive").innerHTML=textvid;    
-            // tepmo="./linkvideo/s"+chonSlsoVl+"/"+chonSlsoVl+"_"+chonBaiStr+".txt";
-            // fetch(tepmo)
-            //     .then(reponse => reponse.text())
-            //     .then(text => document.getElementById("divActive").innerHTML=text);
             document.getElementById("divActive").className='cangiua-divActive';
             iddluu=null;
             slrepeat=1;
@@ -386,7 +380,6 @@
 </script>
 <script> //Ham 6
     function danhgiacau(textnoi){
-        // alert('vua nhap vao van ban noi voi nd la :'+textnoi+'--'+ndluu);
         let chn=ndluu;
         let chd=textnoi;
         const chnList=chn.split(" ");
@@ -441,7 +434,15 @@
         }
     }
 </script>
-    
+<script>
+if (chonSlpaVl=='1'){    
+    textvid='<video width="400" height="240" id="myVideo" controls autoplay >'+
+        '<source id="./mp4_src" src="videomp4/s'+chonSlsoVl+'/y_1_'+chonBaiStr+'.mp4" type="video/mp4">'+
+        '</video>';
+    document.getElementById("divActive").innerHTML=textvid;    
+    document.getElementById("divActive").className='cangiua-divActive';
+}
+</script>
 <br><br><br>
 <div class="footer">
 <br>    
