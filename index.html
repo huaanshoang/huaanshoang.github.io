@@ -4,88 +4,7 @@
   <title>Streamlines</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    .cangiua-divActive{
-        text-align: center;
-    }
-    .fixed-header{
-        top: 0;
-        width: 99%;
-        position: fixed;        
-        background-color:rgba(74, 207, 136);
-        padding: 15px 0;
-        text-align: center;
-    }
-    .footer{
-        text-align: center;
-        color:white;
-        bottom: 0;
-        background-color:rgb(53, 182, 53);
-    }    
-
-    p {font-size: 14pt;}
-    .f-grid {
-        display: flex;
-        justify-content: space-between;
-        margin-left:-0.5rem;
-        flex-flow: row wrap;}
-    .f-grid-col {
-        flex: 3 0;
-        background-color: rgba(184,245,114,0.883);
-        margin-left: 0.5rem;
-        margin-bottom: 1rem;
-        padding: 1rem;
-        font-size: 13pt;}
-    .f-grid-colkhac{
-        flex: 3 0;
-        background-color: rgba(230, 208, 224, 0.883);
-        margin-left: 0.5rem;
-        margin-bottom: 1rem;
-        padding: 1rem;
-        font-size: 13pt;}
-    .f-grid-1dong{
-        background-color: rgb(147, 147, 224);
-        color:yellow;
-        text-align: center;
-    
-    }
-
-    #circlein {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    margin: auto;
-    box-shadow: 1px 1px 15px blueviolet;
-    } 
-.obj {
-    justify-content: center;
-    height: 100%;
-    margin-left: auto;
-}
-.mic-icon {
-    height: 24px;
-    position: center;
-    margin-top:3px;
-    margin-left:0px;
-} 
-
-    .tenbai1 {
-        font-size: 24px;
-        color: rgb(124, 8, 8);
-    }
-    
-    .tenbai2 {
-        font-size: 16px;
-        color: blue;
-    }
-    .words {
-        color: yellow;
-    }
-    .slten{
-        font-size: 22px;
-        color:brown;
-    }
-</style>
+  <link rel="stylesheet" href="style.css">
 <script>var chonSlsoVl='1'; var chonBaiStr='1'; var chonSlpaVl='1';var chonc='';var values = [];</script>
 <script>var tenidl='';var slrepeat=1; var ndluu=""; var giongnoi='en';var iddluu='p1';var iddluu=null;</script>
 
@@ -283,7 +202,7 @@
 
             ndpdf='<object data="./grammar/s'+chonSlsoVl+'/'+'b'+chonBaiStr+'.pdf" type="application/pdf" width="100%" height="500"></object>';
             document.getElementById("divActive").innerHTML=ndpdf;
-
+   
         }
 
     }     
@@ -434,6 +353,19 @@
         }
     }
 </script>
+<!-- <script>
+if (chonSlpaVl=='1'){    
+    textvid='<video width="400" height="240" id="myVideo" controls autoplay id="videocu">'+
+        '<source id="./mp4_src" src="videomp4/s'+chonSlsoVl+'/y_'+chonSlsoVl+'_'+chonBaiStr+'.mp4" type="video/mp4">'+
+        '</video>';
+    document.getElementById("divActive").innerHTML=textvid;    
+    document.getElementById("divActive").className='cangiua-divActive';
+}else{
+    var combox = document.getElementById("videocu");
+    combox.parentNode.removeChild(combox); //parentNode la cha 
+
+}
+</script> -->
 <br><br><br>
 <div class="footer">
 <br>    
