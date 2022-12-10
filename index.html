@@ -32,7 +32,7 @@
                 uchon.options[0].remove();
             }
             themoptions(chonSlsoVl);
-            chonBaiStr='1';
+            chonBaiStr='0';
             xuliviechoc();
         }
 
@@ -43,7 +43,7 @@
                 uchon.options[0].remove();
             }
             themoptions(chonSlsoVl);
-            chonBaiStr='1';
+            chonBaiStr='0';
             xuliviechoc();   
         }   
         if(document.getElementById('Sl_ba').checked) {   
@@ -167,21 +167,26 @@
             document.querySelector(".para").innerHTML='';
             detrong2br();
             ndluu='';
-            textvid='<video width="400" height="240" id="myVideo" controls autoplay >'+
-                '<source id="./mp4_src" src="videomp4/s'+chonSlsoVl+'/y_1_'+chonBaiStr+'.mp4" type="video/mp4">'+
-                '</video>';
-            document.getElementById("divActive").innerHTML=textvid;    
-            document.getElementById("divActive").className='cangiua-divActive';
-            iddluu=null;
-            slrepeat=1;
+            var tepVideo='./videomp4/s'+chonSlsoVl+'/y_'+chonSlsoVl+'_'+chonBaiStr+'.mp4';
+            if (doesFileExist(tepVideo)){
+                textvid='<video width="400" height="240" id="myVideo" controls autoplay >'+
+                    '<source id="./mp4_src" src="'+tepVideo+'" type="video/mp4">'+
+                    '</video>';
+                document.getElementById("divActive").innerHTML=textvid;    
+                document.getElementById("divActive").className='cangiua-divActive';
+                iddluu=null;
+                slrepeat=1;
+            }else{
+                ndpdf='<object data="./grammar/s'+chonSlsoVl+'/'+'b0.pdf" type="application/pdf" width="100%" height="500"></object>';
+                document.getElementById("divActive").innerHTML=ndpdf;
+                alert("Sorry! File does not exist.");
+            }
         }
 
         if (chonSlpaVl=='2'){
             document.querySelector(".para").innerHTML="";
             detrong2br();
             ndluu='';
-            // var videodiv = document.getElementById("myVideo");
-            // videodiv.parentNode.removeChild(videodiv); //parentNode la cha cua unit_so tu tim ra
             textdau='<sub><span styles="color:rgb(129, 68, 78)">Repeat: '+  
                     '<input type="radio" id="mot" onclick=" checkButton()" name="slan" value="1" checked>'+
                     '<label for="mot">1</label>'+
@@ -190,13 +195,19 @@
                     '<input type="radio" id="nam" onclick=" checkButton()" name="slan" value="5">'+
                     '<label for="nam">5</label>'+
                     '</span></sub>';
-            tepmo="./practice/s"+chonSlsoVl+'/'+chonSlsoVl+'_'+chonBaiStr+".html";
-            fetch(tepmo)
-                .then(reponse => reponse.text())
-                .then(text => document.getElementById("divActive").innerHTML=textdau+text);
-            document.getElementById("divActive").className='tudo';
-            iddluu=null;
-            slrepeat=1;
+            var tepmo="./practice/s"+chonSlsoVl+'/'+chonSlsoVl+'_'+chonBaiStr+".html";
+            if (doesFileExist(tepmo)){
+                fetch(tepmo)
+                    .then(reponse => reponse.text())
+                    .then(text => document.getElementById("divActive").innerHTML=textdau+text);
+                document.getElementById("divActive").className='tudo';
+                iddluu=null;
+                slrepeat=1;
+            }else{
+                ndpdf='<object data="./grammar/s'+chonSlsoVl+'/'+'b0.pdf" type="application/pdf" width="100%" height="500"></object>';
+                document.getElementById("divActive").innerHTML=ndpdf;
+                alert("Sorry! File does not exist.");
+            }
         }
         if (chonSlpaVl=='3'){
             document.querySelector(".para").innerHTML="";
@@ -204,10 +215,15 @@
             ndluu='';
             iddluu=null;
             slrepeat=1;
-
-            ndpdf='<object data="./grammar/s'+chonSlsoVl+'/'+'b'+chonBaiStr+'.pdf" type="application/pdf" width="100%" height="500"></object>';
-            document.getElementById("divActive").innerHTML=ndpdf;
-   
+            var tepmo='./grammar/s'+chonSlsoVl+'/'+'b'+chonBaiStr+'.pdf';
+            if (doesFileExist(tepmo)){
+                ndpdf='<object data="'+tepmo+' " type="application/pdf" width="100%" height="500"></object>';
+                document.getElementById("divActive").innerHTML=ndpdf;
+            }else{
+                ndpdf='<object data="./grammar/s'+chonSlsoVl+'/'+'b0.pdf" type="application/pdf" width="100%" height="500"></object>';
+                document.getElementById("divActive").innerHTML=ndpdf;
+                alert("Sorry! File does not exist.");
+            }    
         }
         }
     }     
@@ -372,6 +388,19 @@ if (chonSlpaVl=='1'){
     document.getElementById("divActive").className='cangiua-divActive';
 }
 }
+</script>
+<script>
+    function doesFileExist(urlToFile) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('HEAD', urlToFile, false);
+        xhr.send();
+        if (xhr.status == "404") {
+            return false;
+    
+        } else {
+            return true;
+        }
+    }
 </script> 
 <br><br><br>
 <div class="footer">
