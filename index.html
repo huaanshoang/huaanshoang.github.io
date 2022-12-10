@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
-<script>var chonSlsoVl='1'; var chonBaiStr='1'; var chonSlpaVl='1';var chonc='';var values = [];</script>
+<script>var chonSlsoVl='1'; var chonBaiStr='0'; var chonSlpaVl='1';var chonc='';var values = [];</script>
 <script>var tenidl='';var slrepeat=1; var ndluu=""; var giongnoi='en';var iddluu='p1';var iddluu=null;</script>
 
 </head>
@@ -32,8 +32,8 @@
                 uchon.options[0].remove();
             }
             themoptions(chonSlsoVl);
-            chonBaiStr='1';
-            xuliviechoc();
+            // chonBaiStr='1';
+            // xuliviechoc();
         }
 
         if(document.getElementById('Sl_hai').checked) {   
@@ -43,8 +43,8 @@
                 uchon.options[0].remove();
             }
             themoptions(chonSlsoVl);
-            chonBaiStr='1';
-            xuliviechoc();   
+            // chonBaiStr='1';
+            // xuliviechoc();   
         }   
         if(document.getElementById('Sl_ba').checked) {   
             chonSlsoVl='3';
@@ -53,8 +53,8 @@
                 uchon.options[0].remove();
             }
             themoptions(chonSlsoVl);
-            chonBaiStr='1';
-            xuliviechoc();   
+            // chonBaiStr='1';
+            // xuliviechoc();   
         }
     }       
 </script>   
@@ -67,7 +67,7 @@
         if (chonSlsoVl=='2'){max=122;}
         if (chonSlsoVl=='3'){max=96;}
         var values = [];
-        for (i=1; i<=max; ++i){
+        for (i=0; i<=max; ++i){
             values.push(i.toString());
         }
         var bselect = document.getElementById('unit_so');
@@ -83,7 +83,7 @@
     <script>
         var uchon = document.getElementById("unit_so");
         uchon.onchange=function(){
-            chonBaiStr=(this.selectedIndex+1);
+            chonBaiStr=(this.selectedIndex);
             xuliviechoc();
         }
     </script>
@@ -131,9 +131,9 @@
 
 <div id="divActive" class="cangiua-divActive">
 
-<video width="400" height="240" id="myVideo" controls autoplay>
+<!-- <video width="400" height="240" id="myVideo" controls autoplay>
   <source id="mp4_src" src="videomp4/s1/y_1_1.mp4" type="video/mp4">
-</video>
+</video> -->
 
 </div>
 
@@ -143,7 +143,7 @@
         if (chonSlsoVl=='2'){max=122;}
         if (chonSlsoVl=='3'){max=96;}
         var values = [];
-        for (i=1; i<=max; ++i){
+        for (i=0; i<=max; ++i){
             values.push(i.toString());
         }
         var bselect = document.getElementById('unit_so');
@@ -158,6 +158,11 @@
 
 <script>
     function xuliviechoc(){
+        if (chonBaiStr=='0'){
+            ndpdf='<object data="./grammar/s'+chonSlsoVl+'/'+'b0.pdf" type="application/pdf" width="100%" height="500"></object>';
+            document.getElementById("divActive").innerHTML=ndpdf;
+            // alert('GT');
+        }else{
         if (chonSlpaVl=='1'){
             document.querySelector(".para").innerHTML='';
             detrong2br();
@@ -204,7 +209,7 @@
             document.getElementById("divActive").innerHTML=ndpdf;
    
         }
-
+        }
     }     
 </script>
 
@@ -353,19 +358,21 @@
         }
     }
 </script>
-<!-- <script>
+<script>
+if (chonBaiStr=='0'){
+    ndpdf='<object data="./grammar/s'+chonSlsoVl+'/'+'b0.pdf" type="application/pdf" width="100%" height="500"></object>';
+    document.getElementById("divActive").innerHTML=ndpdf;
+    // alert('Introduction');
+}else{    
 if (chonSlpaVl=='1'){    
     textvid='<video width="400" height="240" id="myVideo" controls autoplay id="videocu">'+
         '<source id="./mp4_src" src="videomp4/s'+chonSlsoVl+'/y_'+chonSlsoVl+'_'+chonBaiStr+'.mp4" type="video/mp4">'+
         '</video>';
     document.getElementById("divActive").innerHTML=textvid;    
     document.getElementById("divActive").className='cangiua-divActive';
-}else{
-    var combox = document.getElementById("videocu");
-    combox.parentNode.removeChild(combox); //parentNode la cha 
-
 }
-</script> -->
+}
+</script> 
 <br><br><br>
 <div class="footer">
 <br>    
