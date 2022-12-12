@@ -123,17 +123,23 @@
     </div>
 </div>    
 <hr>
+<sub id="repeat"><span styles="color:rgb(129, 68, 78)">Repeat: 
+    <input type="radio" id="mot" onclick=" checkButton()" name="slan" value="1" checked>
+    <label for="mot">1</label>
+    <input type="radio" id="ba" onclick=" checkButton()" name="slan" value="3">
+    <label for="ba">3</label>
+    <input type="radio" id="nam" onclick=" checkButton()" name="slan" value="5">
+    <label for="nam">5</label>
+    </span></sub>
+
 </header>
 <a id="detrongorde2br">
 
 </a>
-<br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br>
 
 <div id="divActive" class="cangiua-divActive">
 
-<!-- <video width="400" height="240" id="myVideo" controls autoplay>
-  <source id="mp4_src" src="videomp4/s1/y_1_1.mp4" type="video/mp4">
-</video> -->
 
 </div>
 
@@ -169,15 +175,16 @@
             ndluu='';
             var tepVideo='./videomp4/s'+chonSlsoVl+'/y_'+chonSlsoVl+'_'+chonBaiStr+'.mp4';
             if (doesFileExist(tepVideo)){
-                textvid='<video width="400" height="240" id="myVideo" controls autoplay >'+
-                    '<source id="./mp4_src" src="'+tepVideo+'" type="video/mp4">'+
+                textvid='<video width="400" height="240" id="myVideo" controls autoplay>'+
+                    '<source src="'+tepVideo+'" type="video/mp4">'+
                     '</video>';
                 document.getElementById("divActive").innerHTML=textvid;    
                 document.getElementById("divActive").className='cangiua-divActive';
                 iddluu=null;
                 slrepeat=1;
+                slPlayVid();
             }else{
-                ndpdf='<object data="./grammar/'+'b0.pdf" type="application/pdf" width="100%" height="100%"></object>';
+                ndpdf='<object data="./grammar/s'+chonSlsoVl+'/'+'b0.pdf" type="application/pdf" width="100%" height="200%"></object>';
                 document.getElementById("divActive").innerHTML=ndpdf;
                 alert("Sorry! File does not exist.");
             }
@@ -187,24 +194,16 @@
             document.querySelector(".para").innerHTML="";
             detrong2br();
             ndluu='';
-            textdau='<sub><span styles="color:rgb(129, 68, 78)">Repeat: '+  
-                    '<input type="radio" id="mot" onclick=" checkButton()" name="slan" value="1" checked>'+
-                    '<label for="mot">1</label>'+
-                    '<input type="radio" id="ba" onclick=" checkButton()" name="slan" value="3">'+ 
-                    '<label for="ba">3</label>'+
-                    '<input type="radio" id="nam" onclick=" checkButton()" name="slan" value="5">'+
-                    '<label for="nam">5</label>'+
-                    '</span></sub>';
             var tepmo="./practice/s"+chonSlsoVl+'/'+chonSlsoVl+'_'+chonBaiStr+".html";
             if (doesFileExist(tepmo)){
                 fetch(tepmo)
                     .then(reponse => reponse.text())
-                    .then(text => document.getElementById("divActive").innerHTML=textdau+text);
+                    .then(text => document.getElementById("divActive").innerHTML=text);
                 document.getElementById("divActive").className='tudo';
                 iddluu=null;
                 slrepeat=1;
             }else{
-                ndpdf='<object data="./grammar/'+'b0.pdf" type="application/pdf" width="100%" height="100%"></object>';
+                ndpdf='<object data="./grammar/s'+chonSlsoVl+'/'+'b0.pdf" type="application/pdf" width="100%" height="200%"></object>';
                 document.getElementById("divActive").innerHTML=ndpdf;
                 alert("Sorry! File does not exist.");
             }
@@ -220,7 +219,7 @@
                 ndpdf='<object data="'+tepmo+' " type="application/pdf" width="100%" height="500"></object>';
                 document.getElementById("divActive").innerHTML=ndpdf;
             }else{
-                ndpdf='<object data="./grammar/'+'b0.pdf" type="application/pdf" width="100%" height="100%"></object>';
+                ndpdf='<object data="./grammar/s'+chonSlsoVl+'/'+'b0.pdf" type="application/pdf" width="100%" height="200%"></object>';
                 document.getElementById("divActive").innerHTML=ndpdf;
                 alert("Sorry! File does not exist.");
             }    
@@ -379,14 +378,6 @@ if (chonBaiStr=='0'){
     ndpdf='<object data="./grammar/'+'b0.pdf" type="application/pdf" width="100%" height="200%"></object>';
     document.getElementById("divActive").innerHTML=ndpdf;
     // alert('Introduction');
-}else{    
-if (chonSlpaVl=='1'){    
-    textvid='<video width="400" height="240" id="myVideo" controls autoplay id="videocu">'+
-        '<source id="./mp4_src" src="videomp4/s'+chonSlsoVl+'/y_'+chonSlsoVl+'_'+chonBaiStr+'.mp4" type="video/mp4">'+
-        '</video>';
-    document.getElementById("divActive").innerHTML=textvid;    
-    document.getElementById("divActive").className='cangiua-divActive';
-}
 }
 </script>
 <script>
@@ -401,7 +392,20 @@ if (chonSlpaVl=='1'){
             return true;
         }
     }
-</script> 
+</script>
+<script>
+function slPlayVid(){
+    var vid = document.getElementById("myVideo");
+    vid.onended = function() {
+        slrepeat=slrepeat-1;
+        if (slrepeat>0){
+            // alert(bien);
+            vid.play();
+        }    
+    };
+}
+</script>
+    
 <br><br><br>
 <div class="footer">
 <br>    
