@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
 <script>var chonSlsoVl='1'; var chonBaiStr='0'; var chonSlpaVl='1';var chonc='';var values = [];</script>
-<script>var tenidl='';var slrepeat=1; var ndluu=""; var giongnoi='en';var iddluu='p1';var iddluu=null;</script>
+<script>var tepmoAi=null; var tenidl='';var slrepeat=1; var ndluu=""; var giongnoi='en';var iddluu='p1';var iddluu=null;</script>
 
 </head>
 <body id="body">
@@ -93,10 +93,10 @@
     <label for="Pa_mot">Video</label>
 
     <input type="radio" id="Pa_hai" onclick="chonSlpart()" name="Slpa" value="textv">   
-    <label for="Pa_hai">Practice</label>
+    <label for="Pa_hai">Reading</label>
     
     <input type="radio" id="Pa_ba" onclick="chonSlpart()" name="Slpa" value="gramar">
-    <label for="Pa_ba">Grammar</label>
+    <label for="Pa_ba">Talking</label>
 
 <script> 
     function chonSlpart() {    
@@ -165,7 +165,7 @@
 <script>
     function xuliviechoc(){
         if (chonBaiStr=='0'){
-            ndpdf='<object data="./grammar/'+'b0.pdf" type="application/pdf" width="100%" height="200%"></object>';
+            ndpdf='<iframe src="./grammar/'+'b0.pdf" width="100%" height="500px"></iframe>';
             document.getElementById("divActive").innerHTML=ndpdf;
             // alert('GT');
         }else{
@@ -184,7 +184,7 @@
                 slrepeat=1;
                 slPlayVid();
             }else{
-                ndpdf='<object data="./grammar/s'+chonSlsoVl+'/'+'b0.pdf" type="application/pdf" width="100%" height="200%"></object>';
+                ndpdf='<iframe src="./grammar/s'+chonSlsoVl+'/'+'b0.pdf" width="100%" height="500px"></iframe>';
                 document.getElementById("divActive").innerHTML=ndpdf;
                 alert("Sorry! File does not exist.");
             }
@@ -203,7 +203,7 @@
                 iddluu=null;
                 slrepeat=1;
             }else{
-                ndpdf='<object data="./grammar/s'+chonSlsoVl+'/'+'b0.pdf" type="application/pdf" width="100%" height="200%"></object>';
+                ndpdf='<iframe src="./grammar/s'+chonSlsoVl+'/'+'b0.pdf" width="100%" height="500px"></iframe>';
                 document.getElementById("divActive").innerHTML=ndpdf;
                 alert("Sorry! File does not exist.");
             }
@@ -214,17 +214,11 @@
             ndluu='';
             iddluu=null;
             slrepeat=1;
-            var tepmo='./grammar/s'+chonSlsoVl+'/'+'b'+chonBaiStr+'.pdf';
-            if (doesFileExist(tepmo)){
-                ndpdf='<object data="'+tepmo+' " type="application/pdf" width="100%" height="500"></object>';
-                document.getElementById("divActive").innerHTML=ndpdf;
-            }else{
-                ndpdf='<object data="./grammar/s'+chonSlsoVl+'/'+'b0.pdf" type="application/pdf" width="100%" height="200%"></object>';
-                document.getElementById("divActive").innerHTML=ndpdf;
-                alert("Sorry! File does not exist.");
-            }    
+            ndpdf='<div class="center"><p><br><br><br><br>Hay nhap vao micro de talking theo bai<br></p></div>';
+            document.getElementById("divActive").innerHTML=ndpdf;
+            
         }
-        }
+    }
     }     
 </script>
 
@@ -303,7 +297,10 @@
             console.log(transcript);
             if (e.results[i].isFinal) {
                 speechToText = transcript;
-            } 
+                if (chonSlpaVl=="3"){
+                   chonHamWith(chonSlsoVl,chonBaiStr,speechToText);
+                } 
+            }
         }
         recognition.addEventListener('soundend', () => {
             mic.style.backgroundColor = null;
@@ -313,6 +310,7 @@
         de2br();
     })
     mic.addEventListener("click", () => {
+        document.querySelector(".para").innerHTML="";
         recognition.start();
         mic.style.backgroundColor = "#6BD6E1";
     })
@@ -375,7 +373,7 @@
 </script>
 <script>
 if (chonBaiStr=='0'){
-    ndpdf='<object data="./grammar/'+'b0.pdf" type="application/pdf" width="100%" height="200%"></object>';
+    ndpdf='<iframe src="./grammar/'+'b0.pdf" width="100%" height="500px"></iframe>';
     document.getElementById("divActive").innerHTML=ndpdf;
     // alert('Introduction');
 }
@@ -405,7 +403,7 @@ function slPlayVid(){
     };
 }
 </script>
-    
+<script src="./grammar/cacbaitalk.js"></script>    
 <br><br><br>
 <div class="footer">
 <br>    
