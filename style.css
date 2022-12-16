@@ -1,81 +1,76 @@
-.cangiua-divActive{
-    text-align: center;
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
 }
 .fixed-header{
-    top: 0;
-    width: 99%;
-    position: fixed;        
-    background-color:rgba(74, 207, 136);
-    padding: 15px 0;
-    text-align: center;
+    min-height: 32vh;
+    width: 100%;
+    background: linear-gradient(to bottom right, green, pink);
+    background-position: center ;
+    background-size: cover;
+    position: relative;
+}
+.strCuon{
+    color:rgb(231, 225, 225);
+}
+.tenbai{
+    color:rgb(240, 240, 68);
+    text-align:center;
+
+}
+#circlein {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: auto;
+    box-shadow: 1px 1px 15px lightblue;
+    } 
+.mic-icon {
+    height: 24px;
+    position: center;
+    margin-top:4px;
+    margin-left:4px;
+}
+#words{
+    color:yellow;
+    text-align:center;
+}
+#repeat{
+    text-align:left;
+    color:pink;
+} 
+.strCuon{
+    text-align:center;
+}
+.video{
+    min-height: 100vh;
+    width: 100%;
+    background-position: center ;
+    background-size: cover;
+    position: relative;
+}
+.reading{
+    min-height: 100vh;
+    width: 100%;
+    background-position: center ;
+    background-size: cover;
+    position: relative;
+}
+.talking{
+    min-height: 100vh;
+    width: 100%;
+    background-position: center ;
+    background-size: cover;
+    position: relative;
 }
 .footer{
+    min-height: 14vh;
+    width: 100%;
+    background: linear-gradient(to bottom right,pink,green );
+    background-position: center ;
+    background-size: cover;
+    position: relative;
     text-align: center;
-    color:white;
-    bottom: 0;
-    
-    background-color:rgb(68, 187, 124);
-}    
-
-p {font-size: 14pt;}
-.f-grid {
-    display: flex;
-    justify-content: space-between;
-    margin-left:-0.5rem;
-    flex-flow: row wrap;}
-.f-grid-col {
-    flex: 3 0;
-    background-color: rgba(184,245,114,0.883);
-    margin-left: 0.5rem;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    font-size: 13pt;}
-.f-grid-colkhac{
-    flex: 3 0;
-    background-color: rgba(230, 208, 224, 0.883);
-    margin-left: 0.5rem;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    font-size: 13pt;}
-.f-grid-1dong{
-    background-color: rgb(147, 147, 224);
-    color:yellow;
-    text-align: center;
-
-}
-
-#circlein {
-width: 30px;
-height: 30px;
-border-radius: 50%;
-margin: auto;
-box-shadow: 1px 1px 15px blueviolet;
+  
 } 
-.obj {
-justify-content: center;
-height: 100%;
-margin-left: auto;
-}
-.mic-icon {
-height: 24px;
-position: center;
-margin-top:3px;
-margin-left:0px;
-} 
-
-.tenbai1 {
-    font-size: 24px;
-    color: rgb(124, 8, 8);
-}
-
-.tenbai2 {
-    font-size: 16px;
-    color: blue;
-}
-.words {
-    color: yellow;
-}
-.slten{
-    font-size: 22px;
-    color:brown;
-}
