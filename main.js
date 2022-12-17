@@ -62,64 +62,6 @@ function themoptions(chonSlsoVl){
         bselect.appendChild(option);
     })
 }
-//-----------------------------
-// function xuliviechoc(){
-//     if (chonBaiStr=='0'){
-//         ndpdf='<iframe src="./grammar/'+'b0.pdf" width="100%" height="500px"></iframe>';
-//         document.getElementById("divActive").innerHTML=ndpdf;
-//         // alert('GT');
-//     }else{
-//     if (chonSlpaVl=='1'){
-//         document.querySelector(".para").innerHTML='';
-//         detrong2br();
-//         ndluu='';
-//         var tepVideo='./videomp4/s'+chonSlsoVl+'/y_'+chonSlsoVl+'_'+chonBaiStr+'.mp4';
-//         if (doesFileExist(tepVideo)){
-//             textvid='<video width="400" height="240" id="myVideo" controls autoplay>'+
-//                 '<source src="'+tepVideo+'" type="video/mp4">'+
-//                 '</video>';
-//             document.getElementById("divActive").innerHTML=textvid;    
-//             document.getElementById("divActive").className='cangiua-divActive';
-//             iddluu=null;
-//             slrepeat=1;
-//             slPlayVid();
-//         }else{
-//             ndpdf='<iframe src="./grammar/s'+chonSlsoVl+'/'+'b0.pdf" width="100%" height="500px"></iframe>';
-//             document.getElementById("divActive").innerHTML=ndpdf;
-//             alert("Sorry! File does not exist.");
-//         }
-//     }
-
-//     if (chonSlpaVl=='2'){
-//         document.querySelector(".para").innerHTML="";
-//         detrong2br();
-//         ndluu='';
-//         var tepmo="./practice/s"+chonSlsoVl+'/'+chonSlsoVl+'_'+chonBaiStr+".html";
-//         if (doesFileExist(tepmo)){
-//             fetch(tepmo)
-//                 .then(reponse => reponse.text())
-//                 .then(text => document.getElementById("divActive").innerHTML=text);
-//             document.getElementById("divActive").className='tudo';
-//             iddluu=null;
-//             slrepeat=1;
-//         }else{
-//             ndpdf='<iframe src="./grammar/s'+chonSlsoVl+'/'+'b0.pdf" width="100%" height="500px"></iframe>';
-//             document.getElementById("divActive").innerHTML=ndpdf;
-//             alert("Sorry! File does not exist.");
-//         }
-//     }
-//     if (chonSlpaVl=='3'){
-//         document.querySelector(".para").innerHTML="";
-//         detrong2br();
-//         ndluu='';
-//         iddluu=null;
-//         slrepeat=1;
-//         ndpdf='<div class="center"><p><br><br><br><br>Hay nhap vao micro de talking theo bai<br></p></div>';
-//         document.getElementById("divActive").innerHTML=ndpdf;
-        
-//     }
-// }
-// }     
 //---global neu co su thay doi unit thi ham nay chay----------------------
 var uchon = document.getElementById("unit_so");
 uchon.onchange=function(){
@@ -142,34 +84,90 @@ function chonSlpart() {
     }
 }       
 //----------------------------------
-function kichHoatMic(){
-    //doi mau vong tron va mic
-    let mic = document.querySelector("#circlein");
-    mic.style.backgroundColor = "#6BD6E1";
-    //khoi dong SpeechRecognition
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    const recorder = new SpeechRecognition();
-    
-    recorder.onstart = () => {
-        document.getElementById("words").innerHTML="";
-        console.log('Voice activated');
-    };
-    
-    recorder.onresult = (event) => {
-        const resultIndex = event.resultIndex;
-        const transcript = event.results[resultIndex][0].transcript;
-        document.getElementById("words").innerHTML=transcript;
-        // botVoice(transcript);
-    };
-    
-    mic.addEventListener('click', () =>{
-        recorder.start();
-    });
-    recorder.addEventListener('soundend', () => {
-        mic.style.backgroundColor = null;
-    });
-}
-//-------------------
 function xuliviechoc(){ 
     document.getElementById("words").innerHTML="";
+}
+//------------------------
+// function checkButtonMic(){
+//     if(document.getElementById('micON').checked) {   
+//         miconoff=1;
+//         // document.getElementById('circlein').style.backgroundColor = "#6BD6E1";
+//         // kichHoatRec();
+//     }
+//     if(document.getElementById('micOFF').checked) {   
+//         miconoff=0;
+//         // document.getElementById('circlein').style.backgroundColor = null;
+//     }   
+// }
+//-----------------
+function checkButton() {
+    alert("tttt day");   
+    if(document.getElementById('mot').checked) {   
+        slrepeat=1;   
+    }   
+    if(document.getElementById('ba').checked) {   
+        slrepeat=3;   
+    }   
+    if(document.getElementById('nam').checked) {   
+        slrepeat=5;   
+    }
+}
+//--------------------------------
+function checkButtonMic() {
+    if(document.getElementById('micon').checked) {
+        recogTalk();   
+    }   
+    if(document.getElementById('micoff').checked) {  
+        recogTalk();   
+    }   
+}       
+
+//------------Recognition----------
+function recogTalk(){
+if ("webkitSpeechRecognition" in window) {
+    let speechRecognition = new webkitSpeechRecognition();
+
+    let final_transcript = "";
+    speechRecognition.continuous = true;
+    speechRecognition.interimResults = true;
+    speechRecognition.lang = "en-US";
+  
+    speechRecognition.onstart = () => {
+      document.querySelector("#circlein").style.backgroundColor = "#6BD6E1";
+    };
+    speechRecognition.onerror = () => {
+        document.querySelector("#circlein").style.backgroundColor = null;
+    };
+    speechRecognition.onend = () => {
+        document.querySelector("#circlein").style.backgroundColor = null;
+    };
+  
+    speechRecognition.onresult = (event) => {
+      let interim_transcript = "";
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+          final_transcript += event.results[i][0].transcript;
+        } else {
+          interim_transcript += event.results[i][0].transcript;
+        }
+      }
+      //origin document.querySelector("#final").innerHTML = final_transcript;
+      //origin document.querySelector("#interim").innerHTML = interim_transcript;
+      document.querySelector("#words").innerHTML = interim_transcript;
+    };
+  
+    // Set the onClick property of the start button
+    document.querySelector("#micon").onclick = () => {
+      // Start the Speech Recognition
+      speechRecognition.start();
+    };
+    // Set the onClick property of the stop button
+    document.querySelector("#micoff").onclick = () => {
+      // Stop the Speech Recognition
+      speechRecognition.stop();
+    };
+
+} else {
+    console.log("Speech Recognition Not Available");
+}
 }
