@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Streamlines</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.gstatic.com"> 
-  <link href="https://fonts.googleapis.com /css?? family Poppins: wght@100;200;300;400;600;700&display swap" rel="stylesheet">
-  <script src="main.js" async></script>
-
+  <link rel="stylesheet" href="index.css">
+  <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> 
+  <link href="https://fonts.googleapis.com /css?? family Poppins: wght@100;200;300;400;600;700&display swap" rel="stylesheet"> -->
+  <script src="index.js" ></script>
+  <!-- <script src="./speechRecognition.js"></script> -->
 </head>
 <body>
 <header class="fixed-header">
@@ -39,38 +39,45 @@
         <label for="Pa_ba">Talking</label>
     </div>
     <br>
-    <div class="button" id="circlein" onclick="kichHoatMic()">
+    <div class="button" id="circlein">
         <img src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-25-512.png"
             alt="mic-icon"   
             class="mic-icon"/>
     </div>
-    <sub id="repeat">Repeat: 
-        <input type="radio" id="mot" onclick=" checkButton()" name="slan" value="1" checked>
+    <nav>
+    <sup class="repeat">Repeat: 
+        <input type="radio" id="mot" onclick="checkButton()" name="slan" value="1" checked>
         <label for="mot">1</label>
-        <input type="radio" id="ba" onclick=" checkButton()" name="slan" value="3">
+        <input type="radio" id="ba" onclick="checkButton()" name="slan" value="3">
         <label for="ba">3</label>
-        <input type="radio" id="nam" onclick=" checkButton()" name="slan" value="5">
+        <input type="radio" id="nam" onclick="checkButton()" name="slan" value="5">
         <label for="nam">5</label>
-    </sub>
-    
+    </sup>
+    <sup class="start_stop">Micro : 
+        <input type="radio" id="micon" onclick="checkButtonMic()" name="miconoff" value=1>
+        <label for="micon">On</label>
+        <input type="radio" id="micoff" onclick="checkButtonMic()" name="miconoff" value=0 checked>
+        <label for="micoff">Off</label>
+    </sup>
+    </nav>
     <hr>
     <p id="words"></p>
 </header>
-
+<br><br><br><br><br><br><br><br><br><br><br>
 <div class="video">
-
+<p>video</p>
 
 </div>
 <hr>
 <div class="reading">
-
+<p>reading</p>
 </div>
 <hr>
 <div class="talking">
-
+<p>talking</p>
 </div>
 <div class="footer">
-<p><br>Website nay duoc tao boi tiengs chi de tu hoc tieng Anh<br></p>
+    <sub><br>Website created from tiensg89@gmail.com for learning English</sub>
 </div>
 
 </body> 
