@@ -4,10 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Streamlines</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="index.css">
   <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> 
   <link href="https://fonts.googleapis.com /css?? family Poppins: wght@100;200;300;400;600;700&display swap" rel="stylesheet"> -->
-  <script src="main.js" ></script>
   <!-- <script src="./speechRecognition.js"></script> -->
 </head>
 <body>
@@ -27,6 +26,7 @@
         <br>
         <label for="unit_so">Unit :</label>
         <select name="chonunit" id="unit_so" onclick="themoptions(chonSlsoVl)">
+                    
         </select>
         <a>&ensp;</a>
         <input type="radio" id="Pa_mot" onclick="chonSlpart()" name="Slpa" value="video" checked> 
@@ -74,11 +74,12 @@
 </div>
 <hr>
 <div class="talking">
-<p>talking</p>
+<p id="talking">talking</p>
 </div>
 <div class="footer">
     <sub><br>Website created from tiensg89@gmail.com for learning English</sub>
 </div>
+<script src="index.js" ></script>
 
 </body> 
 </html>
