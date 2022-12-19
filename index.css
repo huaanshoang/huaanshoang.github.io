@@ -4,12 +4,19 @@
     font-family: 'Poppins', sans-serif;
 }
 .fixed-header{
-    min-height: 33vh;
+    /* min-height: 33vh;
     width: 100%;
     background: linear-gradient(to bottom right, green, rgba(74, 207, 136));
     background-position: center ;
     background-size: cover;
+    position: fixed;        */
+    
+    top: 0;
+    width: 100%;
     position: fixed;        
+    background-color:rgba(74, 207, 136);
+    padding: 15px 0;
+
     
 }
 .strCuon{
