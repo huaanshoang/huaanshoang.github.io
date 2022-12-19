@@ -11,6 +11,7 @@ var ndluu="";
 var giongnoi='en';
 var iddluu='p1';
 var message="";
+var miconoff=0;
 //-------------------
 function chonSlso() {    
     if(document.getElementById('Sl_mot').checked) {   
@@ -118,14 +119,19 @@ function checkButton() {
 //--------------------------------
 function checkButtonMic() {
     if(document.getElementById('micon').checked) {
-        recognition.start();
-        document.querySelector("#words").innerHTML = "";
-    }   
-    if(document.getElementById('micoff').checked) {  
-        recognition.stop();
-        document.getElementById('circlein').style.backgroundColor = null;
-        document.querySelector("#words").innerHTML = "";
-
+        miconoff=1;
+        if (miconoff==1){
+            recognition.start();
+            document.querySelector("#words").innerHTML = "";
+        }
+    }       
+    if(document.getElementById('micoff').checked) {
+        miconoff=0;
+        if (miconoff==0){  
+            recognition.stop();
+            document.getElementById('circlein').style.backgroundColor = null;
+            document.querySelector("#words").innerHTML = "";
+        }    
     }   
 }       
 
