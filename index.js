@@ -103,18 +103,6 @@ function xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl){
     }
 }
 //------------------------
-function checkButtonMic(){
-    if(document.getElementById('micON').checked) {   
-        miconoff=1;
-        // document.getElementById('circlein').style.backgroundColor = "#6BD6E1";
-        kichHoatRec();
-    }
-    if(document.getElementById('micOFF').checked) {   
-        miconoff=0;
-        // document.getElementById('circlein').style.backgroundColor = null;
-    }   
-}
-//-----------------
 function checkButton() {
     alert("tttt day");   
     if(document.getElementById('mot').checked) {   
@@ -130,21 +118,20 @@ function checkButton() {
 //--------------------------------
 function checkButtonMic() {
     if(document.getElementById('micon').checked) {
-        recogTalk();   
+        recognition.start();
+        document.querySelector("#words").innerHTML = "";
     }   
     if(document.getElementById('micoff').checked) {  
-        recogTalk();   
+        recognition.stop();
+        document.getElementById('circlein').style.backgroundColor = null;
     }   
 }       
 
 //------------Recognition----------
-function recogTalk(){
-    document.querySelector("#words").innerHTML = "";
 
     window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
     recognition.interimResults = true;
-    recognition.start();
     //Ham sau chay khi da recognition.start() 
     recognition.onstart = () => {
         document.querySelector("#circlein").style.backgroundColor = "#6BD6E1";
@@ -168,7 +155,7 @@ function recogTalk(){
         document.querySelector("#circlein").style.backgroundColor = null;
         document.getElementById("micoff").checked=true;
     });
-}
+
 //----------------------
 function say(message,giongnoi){
     message=message.replaceAll('<span style="color:blue">', '');
