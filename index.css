@@ -61,4 +61,21 @@ nav{
     color:pink;
     bottom: 0;
 } 
+.gioithieu{
+    width: 80%;
+    margin: auto;
+    text-align: center; 
+    padding: 10px;
+}
+h1{
+    font-size: 24px;
+    font-weight: 600;
+}
+p{
+    color: brown;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 22px;
+    padding: 10px ;
+}
 
