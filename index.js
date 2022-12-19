@@ -170,15 +170,6 @@ function checkButtonMic() {
 
 //----------------------
 function say(message,giongnoi){
-    message=message.replaceAll('?', '');
-    message=message.replaceAll('.', '');
-    message=message.replaceAll(',', '');
-    message=message.replaceAll(';', '');
-    message=message.replaceAll('"', '');
-    message=message.replaceAll('!', '');
-    message=message.replaceAll('!?', '');
-    message=message.replaceAll('?!', '');
-
     message=message.replaceAll('<span style="color:blue">', '');
     message=message.replaceAll('<span style="color:red">', '');
     message=message.replaceAll('</span>', '');
