@@ -124,6 +124,8 @@ function checkButtonMic() {
     if(document.getElementById('micoff').checked) {  
         recognition.stop();
         document.getElementById('circlein').style.backgroundColor = null;
+        document.querySelector("#words").innerHTML = "";
+
     }   
 }       
 
