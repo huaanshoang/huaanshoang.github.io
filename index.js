@@ -140,7 +140,7 @@ function checkButtonMic() {
     window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
     recognition.interimResults = true;
-    //Ham sau chay khi da recognition.start() 
+    //Ham sau chay khi da recognition.start() bang cach nhap micON
     recognition.onstart = () => {
         document.querySelector("#circlein").style.backgroundColor = "#6BD6E1";
     };
@@ -162,6 +162,7 @@ function checkButtonMic() {
     recognition.addEventListener('soundend', () => {
         document.querySelector("#circlein").style.backgroundColor = null;
         document.getElementById("micoff").checked=true;
+        recognition.stop();
     });
 
 //----------------------
