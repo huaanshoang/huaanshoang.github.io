@@ -1,4 +1,5 @@
 var chonSlsoVl='1'; 
+themoptions(chonSlsoVl)
 var chonBaiStr='0'; 
 var chonSlpaVl='1';
 
@@ -140,6 +141,8 @@ function checkButtonMic() {
     window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
     recognition.interimResults = true;
+    recognition.continuos=false; //neu la true thi Bot khong hd.(co the bo dong nay) 
+    recognition.lang="en-US";
     //Ham sau chay khi da recognition.start() bang cach nhap micON
     recognition.onstart = () => {
         document.querySelector("#circlein").style.backgroundColor = "#6BD6E1";
@@ -167,6 +170,15 @@ function checkButtonMic() {
 
 //----------------------
 function say(message,giongnoi){
+    message=message.replaceAll('?', '');
+    message=message.replaceAll('.', '');
+    message=message.replaceAll(',', '');
+    message=message.replaceAll(';', '');
+    message=message.replaceAll('"', '');
+    message=message.replaceAll('!', '');
+    message=message.replaceAll('!?', '');
+    message=message.replaceAll('?!', '');
+
     message=message.replaceAll('<span style="color:blue">', '');
     message=message.replaceAll('<span style="color:red">', '');
     message=message.replaceAll('</span>', '');
@@ -187,15 +199,44 @@ function say(message,giongnoi){
 }
 //----------------------
 function botRecAnswer(message){
-    var co =0;
+    message=message.toLowerCase();
+    let co=0;
     const giongnoi='en-US';
-    for (let i=0; i < aListU.length ; i++ ) {
-        if (aListU[i].includes(message)){
+    for (let i=0; i < aLu.length ; i++ ) {
+        let textnoi=message;
+        let ndluu=aLu[i].toLowerCase();
+        if (danhgiacau(textnoi,ndluu) > 75){
             co=1;
-            say(aListB[i],giongnoi);
-        }    
+            say(aLb[i],giongnoi);
+        }
+        // if (aLu[i].toLowerCase().includes(message)){
+        //     co=1;
+        //     say(aLb[i],giongnoi);
+        // }    
     }
     if (co==0){
         say("Sorry, I did not understand that.",giongnoi);
+    }
+}
+//-----------------------------
+function danhgiacau(textnoi,ndluu){
+    var tleptlamtron = 0;
+    let chn=ndluu;
+    let chd=textnoi;
+    const chnList=chn.split(" ");
+    const chdList=chd.split(" ");
+    if ( (chdList.length)>(chnList.length) || ndluu==''){
+        tleptlamtron = 0; //alert('No idea!');    
+    }else{
+        sotud=0;
+        chdList.forEach(hamtien);
+        function hamtien(item){
+                if (chn.indexOf(item)>=0){
+                    sotud= sotud+1;
+                }    
+            }
+        tleptlamtron=(100*sotud/chnList.length).toFixed();
+        // alert(tleptlamtron+'%');
+        return tleptlamtron;
     }
 }
