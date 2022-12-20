@@ -122,30 +122,36 @@ function checkButtonMic() {
     if(document.getElementById('micon').checked) {
         miconoff=1;
         if (miconoff==1){
-            recognition.start();
-            document.querySelector("#words").innerHTML = "";
+            userSpeechToText();
+            // recognition.start();
+            // document.querySelector("#words").innerHTML = "";
         }
     }       
     if(document.getElementById('micoff').checked) {
         miconoff=0;
         if (miconoff==0){  
-            recognition.stop();
+            if (chonSlpaVl=='3'){
+                botRecAnswer(document.getElementById("words").innerHTML,'en');
+            }
+            // say(document.getElementById("words").innerHTML,'en');
             document.getElementById('circlein').style.backgroundColor = null;
-            document.querySelector("#words").innerHTML = "";
+            document.getElementById("words").innerHTML = "";
         }    
     }   
 }       
 
 //------------Recognition----------
-
+function userSpeechToText(){
     window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
     recognition.interimResults = true;
     recognition.continuos=false; //neu la true thi Bot khong hd.(co the bo dong nay) 
     recognition.lang="en-US";
+    recognition.start();
+    document.getElementById("words").innerHTML = "";
     //Ham sau chay khi da recognition.start() bang cach nhap micON
     recognition.onstart = () => {
-        document.querySelector("#circlein").style.backgroundColor = "#6BD6E1";
+        document.getElementById("circlein").style.backgroundColor = "#6BD6E1";
     };
     //Ham sau lay ket qua khi su kien da chay
     recognition.addEventListener("result", e => {
@@ -153,21 +159,22 @@ function checkButtonMic() {
             let transcript = e.results[i][0].transcript;
             console.log(transcript);
             if (e.results[i].isFinal) {
-                document.querySelector("#words").innerHTML = transcript;
-                if (chonSlpaVl=="3"){
-                    //tep .js tuong ung voi chonSlsoVl,chonBaiStr da nap se cho Bot tra loi theo transcript
-                    botRecAnswer(transcript);
-                } 
+                document.getElementById("words").innerHTML = transcript;
+                // if (chonSlpaVl=="3"){
+                //     //tep .js tuong ung voi chonSlsoVl,chonBaiStr da nap se cho Bot tra loi theo transcript
+                //     recognition.stop();
+                //     botRecAnswer(transcript);
+                // } 
             }
         }
 
     })
-    recognition.addEventListener('soundend', () => {
-        document.querySelector("#circlein").style.backgroundColor = null;
-        document.getElementById("micoff").checked=true;
-        recognition.stop();
-    });
-
+    // recognition.addEventListener('soundend', () => {
+    //     recognition.stop();
+    //     document.querySelector("#circlein").style.backgroundColor = null;
+    //     document.getElementById("micoff").checked=true;
+    // });
+}
 //----------------------
 function say(message,giongnoi){
     message=message.replaceAll('<span style="color:blue">', '');
