@@ -129,7 +129,11 @@ function checkButtonMic() {
     }       
     if(document.getElementById('micoff').checked) {
         miconoff=0;
-        if (miconoff==0){  
+        if (miconoff==0){
+            const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+            recognition.addEventListener('audioend', () => {
+                console.log('Audio capturing ended');
+            });  
             if (chonSlpaVl=='3'){
                 botRecAnswer(document.getElementById("words").innerHTML,'en');
             }
