@@ -13,6 +13,9 @@ var giongnoi='en';
 var iddluu='p1';
 var message="";
 var miconoff=0;
+var aLu=[];
+var aLb=[];
+
 //-------------------
 function chonSlso() {    
     if(document.getElementById('Sl_mot').checked) {   
@@ -23,7 +26,7 @@ function chonSlso() {
         }
         themoptions(chonSlsoVl);
         chonBaiStr='0';
-        // xuliviechoc();
+        xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl);
     }
 
     if(document.getElementById('Sl_hai').checked) {   
@@ -34,7 +37,7 @@ function chonSlso() {
         }
         themoptions(chonSlsoVl);
         chonBaiStr='0';
-        // xuliviechoc();   
+        xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl);
     }   
     if(document.getElementById('Sl_ba').checked) {   
         chonSlsoVl='3';
@@ -44,7 +47,7 @@ function chonSlso() {
         }
         themoptions(chonSlsoVl);
         chonBaiStr='0';
-        // xuliviechoc();   
+        xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl);   
     }
 }       
 //---------------------------------
@@ -63,6 +66,7 @@ function themoptions(chonSlsoVl){
         option.value = value;
         bselect.appendChild(option);
     })
+    xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl);
 }
 //---global neu co su thay doi unit thi ham nay chay----------------------
 var uchon = document.getElementById("unit_so");
@@ -147,19 +151,7 @@ function userSpeechToText(){
 }
 //----------------------
 function say(message,giongnoi){
-    message=message.replaceAll('<span style="color:blue">', '');
-    message=message.replaceAll('<span style="color:red">', '');
-    message=message.replaceAll('</span>', '');
-    message=message.replaceAll('</strong>','');
-    message=message.replaceAll('<strong>','');
-    message=message.replaceAll("<em>","");
-    message=message.replaceAll("</em>","");
-    message=message.replaceAll("<u>","");
-    message=message.replaceAll("</u>","");
-    message=message.replaceAll('<span style="color:#0070C0"','');
-    message=message.replaceAll('<span lang="EN" style="color:#0070C0"','');
-    message=message.slice(message.indexOf(":")+1, -1);
-    message=message.trim();
+    message=catBoTextNoNeed(message);
     ndluu=message;
     let speech = new SpeechSynthesisUtterance(message);
     speech.lang = giongnoi;
@@ -204,16 +196,16 @@ function danhgiacau(textnoi,ndluu){
     }
 }
 //--------------------------------
-function xuliviechoc(){
-    if (chonBaiStr==0){
-        const tepmo = "./grammar/b0.html";
-        if (doesFileExist(tepmo)){
-            fetch(tepmo)
-                .then(reponse => reponse.text())
-                .then(text => document.getElementById("divActive").innerHTML=text);
-            document.getElementById("divActive").className='tudo';
-        }
-    }
+function xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl){
+    // if (chonBaiStr==0){
+    //     const tepmo = "./grammar/b0.html";
+    //     if (doesFileExist(tepmo)){
+    //         fetch(tepmo)
+    //             .then(reponse => reponse.text())
+    //             .then(text => document.getElementById("divActive").innerHTML=text);
+    //         document.getElementById("divActive").className='tudo';
+    //     }
+    // }
     if (chonSlpaVl=='1'){
         var tepVideo='./videomp4/s'+chonSlsoVl+'/y_'+chonSlsoVl+'_'+chonBaiStr+'.mp4';
         if (doesFileExist(tepVideo)){
@@ -254,27 +246,30 @@ function xuliviechoc(){
         }
     }
     if (chonSlpaVl=='3'){
-        let tepjs="./talking/s"+chonSlsoVl+'/talk_'+chonSlsoVl+'_'+chonBaiStr+".js";
-        if (doesFileExist(tepjs)){
-            //tai vao tep .js tuong ung va thuc hien cac lenh trong do
-            const script = document.createElement('script');
-            script.src = tepjs;
-            // Append to the 'head' element
-            document.head.appendChild(script);
-            // botAnswer();
-            script.addEventListener('load', function() {
-                // The script is loaded completely
-                // document.getElementById("talking").innerHTML=tepjs+" loaded. Click Mic On to talk";
-                // alert('Da nap bai talk :'+tepjs+' .Hay bat mic de talk.')   
-            });
-        }
+        //let tepjs="./talking/s"+chonSlsoVl+'/talk_'+chonSlsoVl+'_'+chonBaiStr+".js";
+        // if (doesFileExist(tepjs)){
+        //     //tai vao tep .js tuong ung va thuc hien cac lenh trong do
+        //     const script = document.createElement('script');
+        //     script.src = tepjs;
+        //     // Append to the 'head' element
+        //     document.head.appendChild(script);
+        //     // botAnswer();
+        //     script.addEventListener('load', function() {
+        //         // The script is loaded completely
+        //         // document.getElementById("talking").innerHTML=tepjs+" loaded. Click Mic On to talk";
+        //         // alert('Da nap bai talk :'+tepjs+' .Hay bat mic de talk.')   
+        //     });
+        // }
         var tepmo="./practice/s"+chonSlsoVl+'/'+chonSlsoVl+'_'+chonBaiStr+".html";
-        if (doesFileExist(tepmo)){
+        if (doesFileExist(tepmo) && chonBaiStr != 0){
             fetch(tepmo)
                 .then(reponse => reponse.text())
                 .then(text => document.getElementById("divActive").innerHTML="<p>Talk folow lesson:</p>"+text);
             document.getElementById("divActive").className='tudo';
             iddluu=null;
+            // alert('bd saycbvaoList');
+            saycbvaoList();
+    
         }else{
             const tepmo = "./grammar/b0.html";
             if (doesFileExist(tepmo)){
@@ -283,8 +278,8 @@ function xuliviechoc(){
                     .then(text => document.getElementById("divActive").innerHTML=text);
                 document.getElementById("divActive").className='tudo';
             }
+    
         }
-
 
     }
 }    
@@ -344,6 +339,51 @@ function slPlayVid(){
         }    
     };
 }
+//------------------------
+function saycbvaoList(){
+    aLu=[];
+    aLb=[];
 
+    let i=0;
+    let kk=null;
+    soptid=0
+    let iList=-1;
+    while (kk==null){
+        i=i+1;
+        let kk=document.getElementById("p"+i.toString());
+        if ((kk.id).indexOf('p')>=0) {
+            var message=kk.innerHTML;
+            message=catBoTextNoNeed(message);
+
+            if (i % 2 != 0){
+                iList=iList+1
+                aLu[iList]=message;
+            } else {
+                aLb[iList]=message;
+            }
+            
+        }
+
+    }
+
+
+}
+//-----------------------
+function catBoTextNoNeed(message){
+    message=message.replaceAll('<span style="color:blue">', '');
+    message=message.replaceAll('<span style="color:red">', '');
+    message=message.replaceAll('</span>', '');
+    message=message.replaceAll('</strong>','');
+    message=message.replaceAll('<strong>','');
+    message=message.replaceAll("<em>","");
+    message=message.replaceAll("</em>","");
+    message=message.replaceAll("<u>","");
+    message=message.replaceAll("</u>","");
+    message=message.replaceAll('<span style="color:#0070C0"','');
+    message=message.replaceAll('<span lang="EN" style="color:#0070C0"','');
+    message=message.slice(message.indexOf(":")+1,message.lenght);
+    message=message.trim();
+    return message;
+}
 //-----------ham chinh ---
-xuliviechoc();
+xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl);
