@@ -124,7 +124,7 @@ function checkButtonMic() {
         if (miconoff==1){
             userSpeechToText();
             // recognition.start();
-            // document.querySelector("#words").innerHTML = "";
+            // document.querySelector("#words").innerHTML = null;
         }
     }       
     if(document.getElementById('micoff').checked) {
@@ -139,7 +139,9 @@ function checkButtonMic() {
             }
             // say(document.getElementById("words").innerHTML,'en');
             document.getElementById('circlein').style.backgroundColor = null;
-            document.getElementById("words").innerHTML = "";
+            document.getElementById("words").innerHTML = null;
+            
+            
         }    
     }   
 }       
@@ -152,7 +154,7 @@ function userSpeechToText(){
     recognition.continuos=false; //neu la true thi Bot khong hd.(co the bo dong nay) 
     recognition.lang="en-US";
     recognition.start();
-    document.getElementById("words").innerHTML = "";
+    document.getElementById("words").innerHTML = null;
     //Ham sau chay khi da recognition.start() bang cach nhap micON
     recognition.onstart = () => {
         document.getElementById("circlein").style.backgroundColor = "#6BD6E1";
