@@ -161,6 +161,7 @@ function userSpeechToText(){
     };
     //Ham sau lay ket qua khi su kien da chay
     recognition.addEventListener("result", e => {
+        let transcript=null;
         for (let i = e.resultIndex, len = e.results.length; i < len; i++) {
             let transcript = e.results[i][0].transcript;
             console.log(transcript);
