@@ -197,15 +197,15 @@ function danhgiacau(textnoi,ndluu){
 }
 //--------------------------------
 function xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl){
-    if (chonBaiStr==0){
-         const tepmo = "./grammar/b0.html";
-         if (doesFileExist(tepmo)){
-             fetch(tepmo)
-                 .then(reponse => reponse.text())
-                 .then(text => document.getElementById("divActive").innerHTML=text);
-             document.getElementById("divActive").className='tudo';
-         }
-    }
+    // if (chonBaiStr==0){
+    //     const tepmo = "./talking/b0.html";
+    //     if (doesFileExist(tepmo)){
+    //         fetch(tepmo)
+    //             .then(reponse => reponse.text())
+    //             .then(text => document.getElementById("divActive").innerHTML=text);
+    //         document.getElementById("divActive").className='tudo';
+    //     }
+    // }
     if (chonSlpaVl=='1'){
         var tepVideo='./videomp4/s'+chonSlsoVl+'/y_'+chonSlsoVl+'_'+chonBaiStr+'.mp4';
         if (doesFileExist(tepVideo)){
@@ -217,7 +217,7 @@ function xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl){
             slrepeat=1;
             slPlayVid();
         }else{
-            const tepmo = "./grammar/b0.html";
+            const tepmo = "./talking/b0.html";
             if (doesFileExist(tepmo)){
                 fetch(tepmo)
                     .then(reponse => reponse.text())
@@ -236,7 +236,7 @@ function xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl){
             document.getElementById("divActive").className='tudo';
             iddluu=null;
         }else{
-            const tepmo = "./grammar/b0.html";
+            const tepmo = "./talking/b0.html";
             if (doesFileExist(tepmo)){
                 fetch(tepmo)
                     .then(reponse => reponse.text())
@@ -271,7 +271,7 @@ function xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl){
             saycbvaoList();
     
         }else{
-            const tepmo = "./grammar/b0.html";
+            const tepmo = "./talking/b0.html";
             if (doesFileExist(tepmo)){
                 fetch(tepmo)
                     .then(reponse => reponse.text())
@@ -386,7 +386,4 @@ function catBoTextNoNeed(message){
     return message;
 }
 //-----------ham chinh ---
-chonSlsoVl="1";
-chonBaiStr=0;
-chonSlpaVl="1";
 xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl);
