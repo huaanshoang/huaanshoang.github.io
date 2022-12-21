@@ -1,6 +1,6 @@
 var chonSlsoVl='1'; 
 themoptions(chonSlsoVl)
-var chonBaiStr='0'; 
+var chonBaiStr=0; 
 var chonSlpaVl='1';
 
 var chonc='';
@@ -87,26 +87,7 @@ function chonSlpart() {
     }
 }       
 //----------------------------------
-function xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl){ 
-    document.getElementById("words").innerHTML="";
-    if (chonSlpaVl=="3"){
-        //tai vao tep .js tuong ung va thuc hien cac lenh trong do
-        const script = document.createElement('script');
-        let tepjs='./talking/s'+chonSlsoVl+'/talk_'+chonSlsoVl+'_'+chonBaiStr+'.js';
-        script.src = tepjs;
-            // Append to the 'head' element
-        document.head.appendChild(script);
-            // botAnswer();
-        script.addEventListener('load', function() {
-            // The script is loaded completely
-            document.getElementById("talking").innerHTML=tepjs+" loaded. Click Mic On to talk";
-            // alert('Da nap bai talk :'+tepjs+' .Hay bat mic de talk.')   
-        });
-    }
-}
-//------------------------
 function checkButton() {
-    alert("tttt day");   
     if(document.getElementById('mot').checked) {   
         slrepeat=1;   
     }   
@@ -121,31 +102,23 @@ function checkButton() {
 function checkButtonMic() {
     if(document.getElementById('micon').checked) {
         miconoff=1;
-        if (miconoff==1){
-            userSpeechToText();
-            // recognition.start();
-            // document.querySelector("#words").innerHTML = null;
-        }
-    }       
+        userSpeechToText();
+    }
+           
     if(document.getElementById('micoff').checked) {
         miconoff=0;
-        if (miconoff==0){
-            const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
-            recognition.addEventListener('audioend', () => {
-                console.log('Audio capturing ended');
-            });  
-            if (chonSlpaVl=='3'){
-                botRecAnswer(document.getElementById("words").innerHTML,'en');
-            }
-            // say(document.getElementById("words").innerHTML,'en');
-            document.getElementById('circlein').style.backgroundColor = null;
-            document.getElementById("words").innerHTML = null;
-            
-            
-        }    
-    }   
-}       
-
+        const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+        recognition.addEventListener('audioend', () => {
+            console.log('Audio capturing ended');
+        });  
+        if (chonSlpaVl=='3'){
+            botRecAnswer(document.getElementById("words").innerHTML,'en');
+        }
+        // say(document.getElementById("words").innerHTML,'en');
+        document.getElementById('circlein').style.backgroundColor = null;
+        document.getElementById("words").innerHTML = "";
+    }       
+}
 //------------Recognition----------
 function userSpeechToText(){
     window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -154,33 +127,23 @@ function userSpeechToText(){
     recognition.continuos=false; //neu la true thi Bot khong hd.(co the bo dong nay) 
     recognition.lang="en-US";
     recognition.start();
-    document.getElementById("words").innerHTML = null;
+    document.getElementById("words").innerHTML = "";
     //Ham sau chay khi da recognition.start() bang cach nhap micON
     recognition.onstart = () => {
         document.getElementById("circlein").style.backgroundColor = "#6BD6E1";
     };
     //Ham sau lay ket qua khi su kien da chay
     recognition.addEventListener("result", e => {
-        let transcript=null;
         for (let i = e.resultIndex, len = e.results.length; i < len; i++) {
-            let transcript = e.results[i][0].transcript;
-            console.log(transcript);
+            let transcriptN = e.results[i][0].transcript;
+            console.log(transcriptN);
             if (e.results[i].isFinal) {
-                document.getElementById("words").innerHTML = transcript;
-                // if (chonSlpaVl=="3"){
-                //     //tep .js tuong ung voi chonSlsoVl,chonBaiStr da nap se cho Bot tra loi theo transcript
-                //     recognition.stop();
-                //     botRecAnswer(transcript);
-                // } 
+                document.getElementById("words").innerHTML = transcriptN;
+                // alert(document.getElementById("words").innerHTML);
             }
         }
 
     })
-    // recognition.addEventListener('soundend', () => {
-    //     recognition.stop();
-    //     document.querySelector("#circlein").style.backgroundColor = null;
-    //     document.getElementById("micoff").checked=true;
-    // });
 }
 //----------------------
 function say(message,giongnoi){
@@ -204,20 +167,15 @@ function say(message,giongnoi){
 }
 //----------------------
 function botRecAnswer(message){
-    message=message.toLowerCase();
+    let textnoi=message.toLowerCase();
     let co=0;
     const giongnoi='en-US';
     for (let i=0; i < aLu.length ; i++ ) {
-        let textnoi=message;
         let ndluu=aLu[i].toLowerCase();
-        if (danhgiacau(textnoi,ndluu) > 75){
+        if (danhgiacau(textnoi,ndluu) > 75 && textnoi != ""){
             co=1;
             say(aLb[i],giongnoi);
         }
-        // if (aLu[i].toLowerCase().includes(message)){
-        //     co=1;
-        //     say(aLb[i],giongnoi);
-        // }    
     }
     if (co==0){
         say("Sorry, I did not understand that.",giongnoi);
@@ -245,3 +203,147 @@ function danhgiacau(textnoi,ndluu){
         return tleptlamtron;
     }
 }
+//--------------------------------
+function xuliviechoc(){
+    if (chonBaiStr==0){
+        const tepmo = "./grammar/b0.html";
+        if (doesFileExist(tepmo)){
+            fetch(tepmo)
+                .then(reponse => reponse.text())
+                .then(text => document.getElementById("divActive").innerHTML=text);
+            document.getElementById("divActive").className='tudo';
+        }
+    }
+    if (chonSlpaVl=='1'){
+        var tepVideo='./videomp4/s'+chonSlsoVl+'/y_'+chonSlsoVl+'_'+chonBaiStr+'.mp4';
+        if (doesFileExist(tepVideo)){
+            textvid='<video width="400" height="240" id="myVideo" controls autoplay>'+
+                '<source src="'+tepVideo+'" type="video/mp4">'+
+                '</video>';
+            document.getElementById("divActive").innerHTML=textvid;    
+            document.getElementById("divActive").className='cangiua-divActive';
+            slrepeat=1;
+            slPlayVid();
+        }else{
+            const tepmo = "./grammar/b0.html";
+            if (doesFileExist(tepmo)){
+                fetch(tepmo)
+                    .then(reponse => reponse.text())
+                    .then(text => document.getElementById("divActive").innerHTML=text);
+                document.getElementById("divActive").className='tudo';
+            }
+        }
+    }
+    if (chonSlpaVl=='2'){
+        ndluu='';
+        var tepmo="./practice/s"+chonSlsoVl+'/'+chonSlsoVl+'_'+chonBaiStr+".html";
+        if (doesFileExist(tepmo)){
+            fetch(tepmo)
+                .then(reponse => reponse.text())
+                .then(text => document.getElementById("divActive").innerHTML=text);
+            document.getElementById("divActive").className='tudo';
+            iddluu=null;
+        }else{
+            const tepmo = "./grammar/b0.html";
+            if (doesFileExist(tepmo)){
+                fetch(tepmo)
+                    .then(reponse => reponse.text())
+                    .then(text => document.getElementById("divActive").innerHTML=text);
+                document.getElementById("divActive").className='tudo';
+            }
+        }
+    }
+    if (chonSlpaVl=='3'){
+        let tepjs="./talking/s"+chonSlsoVl+'/talk_'+chonSlsoVl+'_'+chonBaiStr+".js";
+        if (doesFileExist(tepjs)){
+            //tai vao tep .js tuong ung va thuc hien cac lenh trong do
+            const script = document.createElement('script');
+            script.src = tepjs;
+            // Append to the 'head' element
+            document.head.appendChild(script);
+            // botAnswer();
+            script.addEventListener('load', function() {
+                // The script is loaded completely
+                // document.getElementById("talking").innerHTML=tepjs+" loaded. Click Mic On to talk";
+                // alert('Da nap bai talk :'+tepjs+' .Hay bat mic de talk.')   
+            });
+        }
+        var tepmo="./practice/s"+chonSlsoVl+'/'+chonSlsoVl+'_'+chonBaiStr+".html";
+        if (doesFileExist(tepmo)){
+            fetch(tepmo)
+                .then(reponse => reponse.text())
+                .then(text => document.getElementById("divActive").innerHTML="<p>Talk folow lesson:</p>"+text);
+            document.getElementById("divActive").className='tudo';
+            iddluu=null;
+        }else{
+            const tepmo = "./grammar/b0.html";
+            if (doesFileExist(tepmo)){
+                fetch(tepmo)
+                    .then(reponse => reponse.text())
+                    .then(text => document.getElementById("divActive").innerHTML=text);
+                document.getElementById("divActive").className='tudo';
+            }
+        }
+
+
+    }
+}    
+//------------------------
+function doesFileExist(urlToFile) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('HEAD', urlToFile, false);
+    xhr.send();
+    if (xhr.status == "404") {
+        return false;
+
+    } else {
+        return true;
+    }
+}
+//----------------------
+function layid(tenidl){
+    document.getElementById(tenidl).className='f-grid-colkhac';
+    if (iddluu != tenidl && iddluu != null){
+      document.getElementById(iddluu).className='f-grid-col';
+    }
+    iddluu=tenidl;
+    var idSo = tenidl.slice(1); //ten id con lai sau khi bo di 1 ki tu. Vd 'b124' bo di 1 ki tu dau thi con lai 124 
+    var message=document.getElementById(tenidl).innerHTML;
+    ndluu=message=document.getElementById(tenidl).innerHTML;
+    for (let i = 1; i <= slrepeat; i++) {
+        if (idSo % 2 == 0){giongnoi='en-GB';} else {giongnoi='en';}
+            say(message, giongnoi);
+    }
+}
+//------------------------------
+function saycb(){
+    var i=0;
+    let kk=null;
+    soptid=0
+    while (kk==null){
+        i=i+1;
+        let kk=document.getElementById("p"+i.toString());
+        if ((kk.id).indexOf('p')>=0) {
+            var message=kk.innerHTML;
+            if (i % 2 == 0){
+                giongnoi='en-GB';
+            } else {
+                giongnoi='en';}
+            say(message,giongnoi);
+        }
+    }
+}
+//----------------------
+function slPlayVid(){
+    var vid = document.getElementById("myVideo");
+    vid.onended = function() {
+        slrepeat=slrepeat-1;
+        if (slrepeat>0){
+            // alert(bien);
+            vid.play();
+        }    
+    };
+}
+
+//-----------ham chinh ---
+xuliviechoc();
