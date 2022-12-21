@@ -197,15 +197,15 @@ function danhgiacau(textnoi,ndluu){
 }
 //--------------------------------
 function xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl){
-    // if (chonBaiStr==0){
-    //     const tepmo = "./talking/b0.html";
-    //     if (doesFileExist(tepmo)){
-    //         fetch(tepmo)
-    //             .then(reponse => reponse.text())
-    //             .then(text => document.getElementById("divActive").innerHTML=text);
-    //         document.getElementById("divActive").className='tudo';
-    //     }
-    // }
+     if (chonBaiStr==0){
+         const tepmo = "./talking/b0.html";
+         if (doesFileExist(tepmo)){
+             fetch(tepmo)
+                 .then(reponse => reponse.text())
+                 .then(text => document.getElementById("divActive").innerHTML=text);
+             document.getElementById("divActive").className='tudo';
+         }
+     }
     if (chonSlpaVl=='1'){
         var tepVideo='./videomp4/s'+chonSlsoVl+'/y_'+chonSlsoVl+'_'+chonBaiStr+'.mp4';
         if (doesFileExist(tepVideo)){
