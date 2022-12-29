@@ -209,7 +209,7 @@ function xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl){
     if (chonSlpaVl=='1'){
         var tepVideo='./videomp4/s'+chonSlsoVl+'/y_'+chonSlsoVl+'_'+chonBaiStr+'.mp4';
         if (doesFileExist(tepVideo)){
-            textvid='<video width="400" height="240" id="myVideo" autoplay>'+
+            textvid='<video width="400" height="240" id="myVideo" controls autoplay>'+
                 '<source src="'+tepVideo+'" type="video/mp4">'+
                 '</video>';
             document.getElementById("divActive").innerHTML=textvid;    
