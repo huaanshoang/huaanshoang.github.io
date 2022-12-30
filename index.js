@@ -1,6 +1,6 @@
 var chonSlsoVl='1'; 
 themoptions(chonSlsoVl)
-var chonBaiStr=0; 
+var chonBaiStr='0'; 
 var chonSlpaVl='1';
 
 var chonc='';
@@ -103,93 +103,52 @@ function checkButton() {
     }
 }
 //--------------------------------
-// function checkButtonMic() {
-//     if(document.getElementById('micon').checked) {
-//         miconoff=1;
-//         userSpeechToText();
-//     }
+function checkButtonMic() {
+    if(document.getElementById('micon').checked) {
+        miconoff=1;
+        userSpeechToText();
+    }
            
-//     if(document.getElementById('micoff').checked) {
-//         miconoff=0;
-//         const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
-//         recognition.addEventListener('audioend', () => {
-//             console.log('Audio capturing ended');
-//         });  
-//         if (chonSlpaVl=='3'){
-//             botRecAnswer(document.getElementById("words").innerHTML,'en');
-//         }
-//         // say(document.getElementById("words").innerHTML,'en');
-//         document.getElementById('circlein').style.backgroundColor = null;
-//         document.getElementById("words").innerHTML = "";
-//     }       
-// }
-//------------Recognition----------
-class SpeechRecognitionApi{
-    constructor(options) {
-        const SpeechToText = window.speechRecognition || window.webkitSpeechRecognition;
-        this.speechApi = new SpeechToText();
-        this.speechApi.continuous = true;
-        this.speechApi.interimResults = false;
-        this.output = options.output ? options.output : document.createElement('div');
-        console.log(this.output)
-        this.speechApi.onresult = (event)=> { 
-            console.log(event);
-            var resultIndex = event.resultIndex;
-            var transcript = event.results[resultIndex][0].transcript;
-            console.log('transcript>>', transcript);
-            console.log(this.output)
-            this.output.textContent = transcript;
+    if(document.getElementById('micoff').checked) {
+        miconoff=0;
+        const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+        recognition.addEventListener('audioend', () => {
+            console.log('Audio capturing ended');
+        });  
+        if (chonSlpaVl=='2'){
+            botRecAnswer(document.getElementById("words").innerHTML,'en');
         }
-    }
-    init(){
-        this.speechApi.start();
-    }
-    stop(){
-        this.speechApi.stop();
-    }
-}
-window.onload = function(){
-    var speech = new SpeechRecognitionApi({
-        output: document.querySelector('#words')
-    })
-    document.querySelector('#micon').addEventListener('click', function () {
-        speech.init()
+        // say(document.getElementById("words").innerHTML,'en');
+        document.getElementById('circlein').style.backgroundColor = null;
         document.getElementById("words").innerHTML = "";
-        // document.querySelector('.output').innerHTML=null;
-        document.getElementById("circlein").style.backgroundColor = "#6BD6E1";
-    })
-    document.querySelector('#micoff').addEventListener('click', function () {
-        speech.stop()
-        document.getElementById("circlein").style.backgroundColor = null;
-    })
-
+    }       
 }
+//------------Recognition----------
+function userSpeechToText(){
+    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+    recognition.interimResults = true;
+    recognition.continuos=false; //neu la true thi Bot khong hd.(co the bo dong nay) 
+    recognition.lang="en-US";
+    recognition.start();
+    document.getElementById("words").innerHTML = "";
+    //Ham sau chay khi da recognition.start() bang cach nhap micON
+    recognition.onstart = () => {
+        document.getElementById("circlein").style.backgroundColor = "#6BD6E1";
+    };
+    //Ham sau lay ket qua khi su kien da chay
+    recognition.addEventListener("result", e => {
+        for (let i = e.resultIndex, len = e.results.length; i < len; i++) {
+            let transcriptN = e.results[i][0].transcript;
+            console.log(transcriptN);
+            if (e.results[i].isFinal) {
+                document.getElementById("words").innerHTML = transcriptN;
+                // alert(document.getElementById("words").innerHTML);
+            }
+        }
 
-// function userSpeechToText(){
-//     window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-//     const recognition = new SpeechRecognition();
-//     recognition.interimResults = true;
-//     recognition.continuos=false; //neu la true thi Bot khong hd.(co the bo dong nay) 
-//     recognition.lang="en-US";
-//     recognition.start();
-//     document.getElementById("words").innerHTML = "";
-//     //Ham sau chay khi da recognition.start() bang cach nhap micON
-//     recognition.onstart = () => {
-//         document.getElementById("circlein").style.backgroundColor = "#6BD6E1";
-//     };
-//     //Ham sau lay ket qua khi su kien da chay
-//     recognition.addEventListener("result", e => {
-//         for (let i = e.resultIndex, len = e.results.length; i < len; i++) {
-//             let transcriptN = e.results[i][0].transcript;
-//             console.log(transcriptN);
-//             if (e.results[i].isFinal) {
-//                 document.getElementById("words").innerHTML = transcriptN;
-//                 // alert(document.getElementById("words").innerHTML);
-//             }
-//         }
-
-//     })
-// }
+    })
+}
 //----------------------
 function say(message,giongnoi){
     message=catBoTextNoNeed(message);
@@ -268,25 +227,6 @@ function xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl){
         }
     }
     if (chonSlpaVl=='2'){
-        ndluu='';
-        var tepmo="./practice/s"+chonSlsoVl+'/'+chonSlsoVl+'_'+chonBaiStr+".html";
-        if (doesFileExist(tepmo)){
-            fetch(tepmo)
-                .then(reponse => reponse.text())
-                .then(text => document.getElementById("divActive").innerHTML=text);
-            document.getElementById("divActive").className='tudo';
-            iddluu=null;
-        }else{
-            const tepmo = "./talking/b0.html";
-            if (doesFileExist(tepmo)){
-                fetch(tepmo)
-                    .then(reponse => reponse.text())
-                    .then(text => document.getElementById("divActive").innerHTML=text);
-                document.getElementById("divActive").className='tudo';
-            }
-        }
-    }
-    if (chonSlpaVl=='3'){
         //let tepjs="./talking/s"+chonSlsoVl+'/talk_'+chonSlsoVl+'_'+chonBaiStr+".js";
         // if (doesFileExist(tepjs)){
         //     //tai vao tep .js tuong ung va thuc hien cac lenh trong do
@@ -302,15 +242,14 @@ function xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl){
         //     });
         // }
         var tepmo="./practice/s"+chonSlsoVl+'/'+chonSlsoVl+'_'+chonBaiStr+".html";
-        if (doesFileExist(tepmo) && chonBaiStr != 0){
+        if (doesFileExist(tepmo) && chonBaiStr !== '0'){
             fetch(tepmo)
                 .then(reponse => reponse.text())
-                .then(text => document.getElementById("divActive").innerHTML="<p>Talk folow lesson:</p>"+text);
+                .then(text => document.getElementById("divActive").innerHTML="<p id='khoidongtalk' onclick='startTalk()'>Click here to talk folow lesson</p>"+text);
             document.getElementById("divActive").className='tudo';
             iddluu=null;
             // alert('bd saycbvaoList');
-            saycbvaoList();
-    
+            // saycbvaoList();
         }else{
             const tepmo = "./talking/b0.html";
             if (doesFileExist(tepmo)){
@@ -392,6 +331,7 @@ function saycbvaoList(){
     while (kk==null){
         i=i+1;
         let kk=document.getElementById("p"+i.toString());
+        
         if ((kk.id).indexOf('p')>=0) {
             var message=kk.innerHTML;
             message=catBoTextNoNeed(message);
@@ -399,6 +339,7 @@ function saycbvaoList(){
             if (i % 2 != 0){
                 iList=iList+1
                 aLu[iList]=message;
+
             } else {
                 aLb[iList]=message;
             }
@@ -406,7 +347,6 @@ function saycbvaoList(){
         }
 
     }
-
 
 }
 //-----------------------
@@ -425,6 +365,12 @@ function catBoTextNoNeed(message){
     message=message.slice(message.indexOf(":")+1,message.lenght);
     message=message.trim();
     return message;
+}
+//---------------------
+function startTalk(){
+    document.getElementById("khoidongtalk").innerHTML="Ready to talk folow lesson";
+    document.getElementById("khoidongtalk").style.color = "blue";
+    saycbvaoList();
 }
 //-----------ham chinh ---
 xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl);
