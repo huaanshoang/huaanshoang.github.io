@@ -145,11 +145,11 @@ function userSpeechToText(){
     
     recognition.onerror = function(event) {
         message.textContent = 'Error occurred in recognition: ' + event.error;
-        document.querySelector("#circlein").style.backgroundColor = null;
-        document.getElementById('user-icon').style.opacity = 0.5;
-        document.getElementById('user-icon').style.filter= "alpha(opacity=50)";
-        document.getElementById('robot-icon').style.opacity = 0.5;
-        document.getElementById('robot-icon').style.filter= "alpha(opacity=50)";
+        // document.querySelector("#circlein").style.backgroundColor = null;
+        // document.getElementById('user-icon').style.opacity = 0.5;
+        // document.getElementById('user-icon').style.filter= "alpha(opacity=50)";
+        // document.getElementById('robot-icon').style.opacity = 0.5;
+        // document.getElementById('robot-icon').style.filter= "alpha(opacity=50)";
     }
     
     document.querySelector('#user-icon').addEventListener('click', function(){
@@ -164,11 +164,13 @@ function userSpeechToText(){
         document.querySelector("#circlein").style.backgroundColor = null;
     
     });
-    document.querySelector('.mic-icon').addEventListener('click', function(){
+    document.querySelector('#circlein').addEventListener('click', function(){
         recognition.stop();
         document.querySelector("#circlein").style.backgroundColor = null;
         document.getElementById('user-icon').style.opacity = 0.5;
         document.getElementById('user-icon').style.filter= "alpha(opacity=50)";
+        document.getElementById('robot-icon').style.opacity = 0.5;
+        document.getElementById('robot-icon').style.filter= "alpha(opacity=50)";
     });
     document.querySelector('#words').addEventListener('click', function(){
         document.getElementById('words').innerHTML="";
