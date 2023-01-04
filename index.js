@@ -120,8 +120,7 @@ function userSpeechToText(){
     recognition.interimResults = false;
 
     recognition.start();
-    document.getElementById('words').innerHTML="";
-    // message.textContent = "";
+    message.textContent = "";
     document.querySelector("#circlein").style.backgroundColor = "#6BD6E1";
 
     recognition.onresult = function(event) {
@@ -129,24 +128,30 @@ function userSpeechToText(){
         var content = event.results[lastResult][0].transcript;
         message.textContent = content;
         textnoi=message.textContent;
-        // say(message.innerHTML,'en-GB');
+        recognition.stop();
+        document.querySelector("#circlein").style.backgroundColor = null;
+
         if (sotalk==1 && chonSlpaVl=='3'){
+            document.getElementById('user-icon').style.opacity = 0.5;
+            document.getElementById('user-icon').style.filter= "alpha(opacity=50)";
             botRecAnswer(textnoi); //ham nay xu li textnoi cua user trong talk 1
         }
         if (sotalk==2 && chonSlpaVl=='3'){
+            document.getElementById('user-icon').style.opacity = 0.5;
+            document.getElementById('user-icon').style.filter= "alpha(opacity=50)";
             userRecAnswer(textnoi); //ham nay xu li textnoi cua user trong talk 1
         }
 
     };
     
-    recognition.onspeechend = function() {
-        recognition.stop();
-        document.querySelector("#circlein").style.backgroundColor = null;
-        document.getElementById('user-icon').style.opacity = 0.5;
-        document.getElementById('user-icon').style.filter= "alpha(opacity=50)";
-        document.getElementById('robot-icon').style.opacity = 0.5;
-        document.getElementById('robot-icon').style.filter= "alpha(opacity=50)";
-        };
+    // recognition.onspeechend = function() {
+    //     recognition.stop();
+    //     document.querySelector("#circlein").style.backgroundColor = null;
+    //     document.getElementById('user-icon').style.opacity = 0.5;
+    //     document.getElementById('user-icon').style.filter= "alpha(opacity=50)";
+    //     document.getElementById('robot-icon').style.opacity = 0.5;
+    //     document.getElementById('robot-icon').style.filter= "alpha(opacity=50)";
+    //     };
     
     recognition.onerror = function(event) {
         message.textContent = 'Error occurred in recognition: ' + event.error;
@@ -255,6 +260,7 @@ function danhgiacau(textnoi,ndluu){
 //--------------------------------
 function xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl){
      if (chonBaiStr==0){
+        document.getElementById('words').innerHTML="";
         document.getElementById("robot-icon").style.display = "none";
         document.getElementById("user-icon").style.display = "none";
         document.getElementById("circlein").style.display = "none";
@@ -268,6 +274,8 @@ function xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl){
          }
      }
     if (chonSlpaVl=='1'){
+        document.getElementById('words').innerHTML="";
+        document.getElementById('ntalking').innerHTML="&ensp;";
         document.getElementById("robot-icon").style.display = "none";
         document.getElementById("user-icon").style.display = "none";
         document.getElementById("circlein").style.display = "none";
@@ -292,6 +300,8 @@ function xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl){
         }
     }
     if (chonSlpaVl=='2'){
+        document.getElementById('words').innerHTML="";
+        document.getElementById('ntalking').innerHTML="&ensp;";
         var tepmo="./practice/s"+chonSlsoVl+'/'+chonSlsoVl+'_'+chonBaiStr+".html";
         if (doesFileExist(tepmo) && chonBaiStr !== '0'){
             fetch(tepmo)
@@ -302,8 +312,8 @@ function xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl){
             var r = document.querySelector(':root');
             r.style.setProperty('--mau-f-grid-col', 'rgba(184,245,114,0.883)');
             document.getElementById("robot-icon").style.display = "none";
-            document.getElementById("user-icon").style.display = "block";
-            document.getElementById("circlein").style.display = "block";
+            document.getElementById("user-icon").style.display = "none";
+            document.getElementById("circlein").style.display = "none";
             // userSpeechToText();
             iddluu=null;
             // alert('bd saycbvaoList');
