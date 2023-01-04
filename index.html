@@ -6,8 +6,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <title>Streamlines</title>
   <link rel="stylesheet" href="index.css">
-  
-</head>
+  </head>
 <body>
 <header class="fixed-header">
     <div class="strCuon">
@@ -28,34 +27,34 @@
                     
         </select>
         <a>&ensp;</a>
-        <input type="radio" id="Pa_mot" onclick="chonSlpart()" name="Slpa" value="video" checked> 
+        <input type="radio" id="Pa_mot" onclick="chonSlpart()" name="Slpa" value="1" checked> 
         <label for="Pa_mot">Video</label>
     
-        <input type="radio" id="Pa_hai" onclick="chonSlpart()" name="Slpa" value="textv">   
-        <label for="Pa_hai">Reading & talking</label>
+        <input type="radio" id="Pa_hai" onclick="chonSlpart()" name="Slpa" value="2">   
+        <label for="Pa_hai">Reading</label>
         
+        <input type="radio" id="Pa_ba" onclick="chonSlpart()" name="Slpa" value="3">   
+        <label for="Pa_ba">Talking</label>
     </div>
     <br>
+
     <div class="button" id="circlein">
-        <img src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-25-512.png"
-            alt="mic-icon"   
-            class="mic-icon"/>
+        <img src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-25-512.png" alt="mic-icon" class="mic-icon"/>
     </div>
     <nav>
-    <p class="repeat">Repeat: 
+    <a class="repeat">Repeat: 
         <input type="radio" id="mot" onclick="checkButton()" name="slan" value="1" checked>
         <label for="mot">1</label>
         <input type="radio" id="ba" onclick="checkButton()" name="slan" value="3">
         <label for="ba">3</label>
         <input type="radio" id="nam" onclick="checkButton()" name="slan" value="5">
         <label for="nam">5</label>
-    </p>
-    <p class="start_stop">Micro : 
-        <input type="radio" id="micon" onclick="checkButtonMic()" name="miconoff" value=1>
-        <label for="micon">On</label>
-        <input type="radio" id="micoff" onclick="checkButtonMic()" name="miconoff" value=0 checked>
-        <label for="micoff">Off</label>
-    </p>
+    </a>
+    
+    <p>    <img onclick="robotIconClicked()" src="./images/robot.png" alt="robot-icon" id="robot-icon"/>
+        <a id="ntalking">&ensp;</a> 
+        <img onclick="userIconClicked()" src="./images/user.png" alt="user-icon" id="user-icon"/></p>
+    
     </nav>
     <hr>
     <p id="words"></p>
@@ -71,7 +70,6 @@
     <sub><br>Website created from tiensg89@gmail.com for learning English</sub>
 </div>
 <script src="index.js" ></script>
-
 </body> 
 </html>
 

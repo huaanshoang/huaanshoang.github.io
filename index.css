@@ -1,3 +1,6 @@
+:root{
+    --mau-f-grid-col: rgba(184,245,114,0.883);
+}
 *{
     margin: 0;
     padding: 0;
@@ -40,12 +43,19 @@
     margin-top:4px;
     margin-left:3px;
 }
+.mic-iconub {
+    height: 24px;
+    /* position: center; */
+    margin-top:4px;
+    margin-left:3px;
+}
 #words{
     color:yellow;
     text-align:center;
 }
 nav{
     display: flex;
+    /* display: inline; */
     padding: auto;
     justify-content: space-between;
     align-items: top;
@@ -62,9 +72,9 @@ nav{
     bottom: 0;
 } 
 .gioithieu{
-    width: 80%;
+    width: 66%;
     margin: auto;
-    text-align: center; 
+    /* text-align: center;  */
     padding: 10px;
 }
 h1{
@@ -89,7 +99,7 @@ p {font-size: 14pt;}
     flex-flow: row wrap;}
 .f-grid-col {
     flex: 3 0;
-    background-color: rgba(184,245,114,0.883);
+    background-color: var(--mau-f-grid-col);
     margin-left: 0.5rem;
     margin-bottom: 1rem;
     padding: 1rem;
@@ -107,4 +117,21 @@ p {font-size: 14pt;}
     text-align: center;
 
 }
-
+.tdgioithieu{
+    text-align: center;
+    color:darkblue;
+}
+#user-icon, #robot-icon{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: none;
+    opacity: 0.5;  
+    filter: alpha(opacity=50);
+    /* color:white;
+    background-color: #777; */
+  }
+  /* #user-icon:hover, #robot-icon:hover{
+    opacity: 1.0;  
+    filter: alpha(opacity=100);
+  }   */

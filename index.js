@@ -12,10 +12,18 @@ var ndluu="";
 var giongnoi='en';
 var iddluu='p1';
 var message="";
-var miconoff=0;
 var aLu=[];
 var aLb=[];
+var nStartTalk=0;
+var sotalk=1;
+var indexOfaLu=-1;
 
+var solanusertalk=0;
+var solanrobottalk=0;
+var diem=0;
+var tleptlamtron=0;
+var textnoi="";
+var soptaLu=0;
 //-------------------
 function chonSlso() {    
     if(document.getElementById('Sl_mot').checked) {   
@@ -88,7 +96,8 @@ function chonSlpart() {
     if(document.getElementById('Pa_ba').checked) {   
         chonSlpaVl='3';
         xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl);
-    }
+    }   
+    
 }       
 //----------------------------------
 function checkButton() {
@@ -102,79 +111,124 @@ function checkButton() {
         slrepeat=5;   
     }
 }
-//--------------------------------
-function checkButtonMic() {
-    if(document.getElementById('micon').checked) {
-        miconoff=1;
-        userSpeechToText();
-    }
-           
-    if(document.getElementById('micoff').checked) {
-        miconoff=0;
-        const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
-        recognition.addEventListener('audioend', () => {
-            console.log('Audio capturing ended');
-        });  
-        if (chonSlpaVl=='2'){
-            botRecAnswer(document.getElementById("words").innerHTML,'en');
-        }
-        // say(document.getElementById("words").innerHTML,'en');
-        document.getElementById('circlein').style.backgroundColor = null;
-        document.getElementById("words").innerHTML = "";
-    }       
-}
 //------------Recognition----------
 function userSpeechToText(){
-    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    const recognition = new SpeechRecognition();
-    recognition.interimResults = true;
-    recognition.continuos=false; //neu la true thi Bot khong hd.(co the bo dong nay) 
-    recognition.lang="en-US";
-    recognition.start();
-    document.getElementById("words").innerHTML = "";
-    //Ham sau chay khi da recognition.start() bang cach nhap micON
-    recognition.onstart = () => {
-        document.getElementById("circlein").style.backgroundColor = "#6BD6E1";
-    };
-    //Ham sau lay ket qua khi su kien da chay
-    recognition.addEventListener("result", e => {
-        for (let i = e.resultIndex, len = e.results.length; i < len; i++) {
-            let transcriptN = e.results[i][0].transcript;
-            console.log(transcriptN);
-            if (e.results[i].isFinal) {
-                document.getElementById("words").innerHTML = transcriptN;
-                // alert(document.getElementById("words").innerHTML);
-            }
+    var message = document.querySelector('#words');
+    var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+    var recognition = new SpeechRecognition();
+    recognition.lang = 'en-US'; //'vi-VN';
+    recognition.interimResults = false;
+    
+    recognition.onresult = function(event) {
+        var lastResult = event.results.length - 1;
+        var content = event.results[lastResult][0].transcript;
+        message.textContent = content;
+        textnoi=message.textContent;
+        // say(message.innerHTML,'en-GB');
+        if (sotalk==1 && chonSlpaVl=='3'){
+            botRecAnswer(textnoi); //ham nay xu li textnoi cua user trong talk 1
+        }
+        if (sotalk==2 && chonSlpaVl=='3'){
+            userRecAnswer(textnoi); //ham nay xu li textnoi cua user trong talk 1
         }
 
-    })
+    };
+    
+    recognition.onspeechend = function() {
+        recognition.stop();
+        document.querySelector("#circlein").style.backgroundColor = null;
+        document.getElementById('user-icon').style.opacity = 0.5;
+        document.getElementById('user-icon').style.filter= "alpha(opacity=50)";
+        
+    
+    };
+    
+    recognition.onerror = function(event) {
+        message.textContent = 'Error occurred in recognition: ' + event.error;
+        document.querySelector("#circlein").style.backgroundColor = null;
+        document.getElementById('user-icon').style.opacity = 0.5;
+        document.getElementById('user-icon').style.filter= "alpha(opacity=50)";
+        document.getElementById('robot-icon').style.opacity = 0.5;
+        document.getElementById('robot-icon').style.filter= "alpha(opacity=50)";
+    }
+    
+    document.querySelector('#user-icon').addEventListener('click', function(){
+        recognition.start();
+        document.getElementById('words').innerHTML="";
+        // message.textContent = "";
+        document.querySelector("#circlein").style.backgroundColor = "#6BD6E1";
+    
+    });
+    document.querySelector('#robot-icon').addEventListener('click', function(){
+        recognition.stop();
+        document.querySelector("#circlein").style.backgroundColor = null;
+    
+    });
+    document.querySelector('.mic-icon').addEventListener('click', function(){
+        recognition.stop();
+        document.querySelector("#circlein").style.backgroundColor = null;
+        document.getElementById('user-icon').style.opacity = 0.5;
+        document.getElementById('user-icon').style.filter= "alpha(opacity=50)";
+    });
+    document.querySelector('#words').addEventListener('click', function(){
+        document.getElementById('words').innerHTML="";
+    });
+
 }
 //----------------------
-function say(message,giongnoi){
-    message=catBoTextNoNeed(message);
-    ndluu=message;
-    let speech = new SpeechSynthesisUtterance(message);
+function say(textnoi,giongnoi){
+    textnoi=catBoTextNoNeed(textnoi);
+    // ndluu=message;
+    let speech = new SpeechSynthesisUtterance(textnoi);
     speech.lang = giongnoi;
     window.speechSynthesis.speak(speech);
 }
 //----------------------
-function botRecAnswer(message){
-    let textnoi=message.toLowerCase();
-    let co=0;
-    const giongnoi='en-US';
-    for (let i=0; i < aLu.length ; i++ ) {
-        let ndluu=aLu[i].toLowerCase();
-        if (danhgiacau(textnoi,ndluu) > 75 && textnoi != ""){
-            co=1;
-            say(aLb[i],giongnoi);
+function botRecAnswer(textnoi){
+    if (sotalk==1){ //bot tu dong tra loi khi nguoi da noi 1 cau ma khong can click vao bot-icon bang cach duyet list tim tra loi
+        textnoi=textnoi.toLowerCase();
+        let co=0;
+        const giongnoi='en-US';
+        for (let i=0; i < aLu.length ; i++ ) {
+            let ndluui=aLu[i].toLowerCase();
+            if (danhgiacau(textnoi,ndluui) > 75 && textnoi != ""){
+                co=1;
+                say(aLb[i],giongnoi);
+            }
+        }
+        if (co==0){
+            say("Sorry, I did not understand that.",giongnoi);
         }
     }
-    if (co==0){
-        say("Sorry, I did not understand that.",giongnoi);
-    }
 }
+
+//-----------------------------
+function userRecAnswer(message){
+     textnoi=message.toLowerCase();
+     ndluu=ndluu.toLowerCase();
+     if (danhgiacau(textnoi,ndluu) > 75 && textnoi != ""){
+         diem=diem+1;
+        //  alert(diem);
+     }
+     if (aLu.length==0){
+        let tbao="Marks you got : "+(100*diem/soptaLu).toFixed()+"%";
+        document.getElementById('words').innerHTML=tbao;
+        diem=0;
+        solanusertalk=0;
+        solanrobottalk=0;
+        soptaLu=0;
+        document.getElementById('ntalking').innerHTML="&ensp;";
+
+        saycbvaoList();
+     }
+
+}
+
 //-----------------------------
 function danhgiacau(textnoi,ndluu){
+    textnoi=catBoTextNoNeed(textnoi);
+    ndluu=catBoTextNoNeed(ndluu);
+    // alert(textnoi+' : '+ndluu);
     var tleptlamtron = 0;
     let chn=ndluu;
     let chd=textnoi;
@@ -198,6 +252,10 @@ function danhgiacau(textnoi,ndluu){
 //--------------------------------
 function xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl){
      if (chonBaiStr==0){
+        document.getElementById("robot-icon").style.display = "none";
+        document.getElementById("user-icon").style.display = "none";
+        document.getElementById("circlein").style.display = "none";
+
          const tepmo = "./talking/b0.html";
          if (doesFileExist(tepmo)){
              fetch(tepmo)
@@ -207,6 +265,10 @@ function xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl){
          }
      }
     if (chonSlpaVl=='1'){
+        document.getElementById("robot-icon").style.display = "none";
+        document.getElementById("user-icon").style.display = "none";
+        document.getElementById("circlein").style.display = "none";
+
         var tepVideo='./videomp4/s'+chonSlsoVl+'/y_'+chonSlsoVl+'_'+chonBaiStr+'.mp4';
         if (doesFileExist(tepVideo)){
             textvid='<video width="400" height="240" id="myVideo" controls autoplay>'+
@@ -227,26 +289,19 @@ function xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl){
         }
     }
     if (chonSlpaVl=='2'){
-        //let tepjs="./talking/s"+chonSlsoVl+'/talk_'+chonSlsoVl+'_'+chonBaiStr+".js";
-        // if (doesFileExist(tepjs)){
-        //     //tai vao tep .js tuong ung va thuc hien cac lenh trong do
-        //     const script = document.createElement('script');
-        //     script.src = tepjs;
-        //     // Append to the 'head' element
-        //     document.head.appendChild(script);
-        //     // botAnswer();
-        //     script.addEventListener('load', function() {
-        //         // The script is loaded completely
-        //         // document.getElementById("talking").innerHTML=tepjs+" loaded. Click Mic On to talk";
-        //         // alert('Da nap bai talk :'+tepjs+' .Hay bat mic de talk.')   
-        //     });
-        // }
         var tepmo="./practice/s"+chonSlsoVl+'/'+chonSlsoVl+'_'+chonBaiStr+".html";
         if (doesFileExist(tepmo) && chonBaiStr !== '0'){
             fetch(tepmo)
                 .then(reponse => reponse.text())
-                .then(text => document.getElementById("divActive").innerHTML="<p id='khoidongtalk' onclick='startTalk()'>Click here to talk folow lesson</p>"+text);
+                .then(text => document.getElementById("divActive").innerHTML="<p>Click on row below for reading</p>"+text);
             document.getElementById("divActive").className='tudo';
+            //doi mau lai f-grid-col
+            var r = document.querySelector(':root');
+            r.style.setProperty('--mau-f-grid-col', 'rgba(184,245,114,0.883)');
+            document.getElementById("robot-icon").style.display = "none";
+            document.getElementById("user-icon").style.display = "block";
+            document.getElementById("circlein").style.display = "block";
+            userSpeechToText();
             iddluu=null;
             // alert('bd saycbvaoList');
             // saycbvaoList();
@@ -262,6 +317,39 @@ function xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl){
         }
 
     }
+    if (chonSlpaVl=='3'){
+        //doi mau f-grid-col
+        //lay tep vao
+        var tepmo="./practice/s"+chonSlsoVl+'/'+chonSlsoVl+'_'+chonBaiStr+".html";
+        if (doesFileExist(tepmo) && chonBaiStr !== '0'){
+            fetch(tepmo)
+                .then(reponse => reponse.text())
+                .then(text => document.getElementById("divActive").innerHTML="<p id='khoidongtalk' onclick='startTalk()'>Click here to select talk 1 or 2</p>"+text);
+            document.getElementById("divActive").className='tudo';
+            iddluu=null;
+            var r = document.querySelector(':root');
+            r.style.setProperty('--mau-f-grid-col', 'lightgrey');
+            document.getElementById("robot-icon").style.display = "none";
+            document.getElementById("user-icon").style.display = "none";
+            document.getElementById("circlein").style.display = "none";
+            userSpeechToText();
+            iddluu=null;
+            // alert('bd saycbvaoList');
+            
+            saycbvaoList();
+        }else{
+            const tepmo = "./talking/b0.html";
+            if (doesFileExist(tepmo)){
+                fetch(tepmo)
+                    .then(reponse => reponse.text())
+                    .then(text => document.getElementById("divActive").innerHTML=text);
+                document.getElementById("divActive").className='tudo';
+            }
+    
+        }
+
+    }
+
 }    
 //------------------------
 function doesFileExist(urlToFile) {
@@ -338,19 +426,21 @@ function saycbvaoList(){
 
             if (i % 2 != 0){
                 iList=iList+1
+                soptaLu=soptaLu+1;
+                // alert(soptaLu);
                 aLu[iList]=message;
+                indexOfaLu=indexOfaLu+1
 
             } else {
                 aLb[iList]=message;
             }
             
         }
-
     }
-
 }
 //-----------------------
 function catBoTextNoNeed(message){
+
     message=message.replaceAll('<span style="color:blue">', '');
     message=message.replaceAll('<span style="color:red">', '');
     message=message.replaceAll('</span>', '');
@@ -364,15 +454,110 @@ function catBoTextNoNeed(message){
     message=message.replaceAll('<span lang="EN" style="color:#0070C0"','');
     message=message.slice(message.indexOf(":")+1,message.lenght);
     message=message.trim();
+
+    message=message.replaceAll('.', '');
+    message=message.replaceAll('?', '');
+    message=message.replaceAll(':', '');
+    message=message.replaceAll(';', '');
+    message=message.replaceAll(',', '');
+    message=message.toLowerCase();
     return message;
 }
 //---------------------
-function startTalk(){
-    document.getElementById("khoidongtalk").innerHTML="Ready to talk folow lesson";
-    document.getElementById("khoidongtalk").style.color = "blue";
-    saycbvaoList();
+function startTalk(){   //khoi dong lai talkUB/BU ham nay co khi lay bai text vao
+if (chonSlpaVl=='3'){    
+    if ((nStartTalk % 2) == 0){
+        nStartTalk = nStartTalk + 1;
+        document.getElementById("khoidongtalk").innerHTML="Talk: User & Bot (Click to select others)";
+        document.getElementById("khoidongtalk").style.color = "blue";
+
+        var r = document.querySelector(':root');
+        r.style.setProperty('--mau-f-grid-col', 'lightgrey');
+        document.getElementById("robot-icon").style.display = "none";
+        document.getElementById("user-icon").style.display = "inline";
+        document.getElementById("circlein").style.display = "block";
+        userSpeechToText();
+        iddluu=null;
+
+
+        document.getElementById("words").innerHTML="";
+
+        document.getElementById('user-icon').style.opacity = 0.5;
+        document.getElementById('user-icon').style.filter= "alpha(opacity=50)";
+        
+        sotalk=1;  
+        solanusertalk=0;
+        solanrobottalk=0;
+        soptaLu=0;
+        diem=0;
+        saycbvaoList(); //aLu,aLb da dc cap nhat trong ham nay
+    }else{
+        nStartTalk = nStartTalk + 1;
+        document.getElementById("khoidongtalk").innerHTML="Talk: Bot & User (Click to select others)";
+        document.getElementById("khoidongtalk").style.color = "green";
+        //cho mo 2 nut user va robot
+        var r = document.querySelector(':root');
+        r.style.setProperty('--mau-f-grid-col', 'lightgrey');
+        document.getElementById("robot-icon").style.display = "inline";
+        document.getElementById("user-icon").style.display = "inline";
+        document.getElementById("circlein").style.display = "block";
+        // userSpeechToText();
+        // iddluu=null;
+
+        document.getElementById("words").innerHTML="";
+
+        document.getElementById('robot-icon').style.opacity = 0.5;
+        document.getElementById('robot-icon').style.filter= "alpha(opacity=50)";
+        document.getElementById('user-icon').style.opacity = 0.5;
+        document.getElementById('user-icon').style.filter= "alpha(opacity=50)";
+
+        sotalk=2;
+        solanusertalk=0;
+        solanrobottalk=0;
+        soptaLu=0;
+        diem=0;
+        saycbvaoList(); //aLu,aLb da dc cap nhat trong ham nay
+    }
 }
+}
+//-----------------
+function userIconClicked(){
+    //vua click userIconClicked thi tu dong ham reccognition.star hdong va lang nghe userv phat am
+    document.getElementById('user-icon').style.opacity = 1;
+    document.getElementById('user-icon').style.filter= "alpha(opacity=100)";
+
+    document.getElementById('robot-icon').style.opacity = 0.5;
+    document.getElementById('robot-icon').style.filter= "alpha(opacity=50)";
+
+}
+//-----------------
+function robotIconClicked(){
+    document.getElementById('robot-icon').style.opacity = 1;
+    document.getElementById('robot-icon').style.filter= "alpha(opacity=100)";
+
+    document.getElementById('user-icon').style.opacity = 0.5;
+    document.getElementById('user-icon').style.filter= "alpha(opacity=50)";
+    solanrobottalk=solanrobottalk+1;
+    // alert(soptaLu);
+    document.getElementById('ntalking').innerHTML=solanrobottalk.toString()+'/'+soptaLu.toString();
+    //lay 1 so nn trong [0,aLu.lenght]
+    
+    let nrand = Math.floor(Math.random()*aLu.length);
+    // alert(ndluu);
+    say(aLu[nrand],giongnoi);
+    ndluu=aLb[nrand]
+    //lay ra bo di pt tai nrand
+    aLu.splice(nrand,1);
+    aLb.splice(nrand,1);
+
+    //user nhan nut de tra loi
+}
+
 //-----------ham chinh ---
+
 xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl);
+document.getElementById("robot-icon").style.display = "none";
+document.getElementById("user-icon").style.display = "none";
+document.getElementById("circlein").style.display = "none";
 //api key for chatbot python 29-12-22
 //6872f5ecb8f26fe4bb0bd2cb0945ed08364d984f
