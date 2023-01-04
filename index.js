@@ -118,7 +118,12 @@ function userSpeechToText(){
     var recognition = new SpeechRecognition();
     recognition.lang = 'en-US'; //'vi-VN';
     recognition.interimResults = false;
-    
+
+    recognition.start();
+    document.getElementById('words').innerHTML="";
+    // message.textContent = "";
+    document.querySelector("#circlein").style.backgroundColor = "#6BD6E1";
+
     recognition.onresult = function(event) {
         var lastResult = event.results.length - 1;
         var content = event.results[lastResult][0].transcript;
@@ -139,44 +144,40 @@ function userSpeechToText(){
         document.querySelector("#circlein").style.backgroundColor = null;
         document.getElementById('user-icon').style.opacity = 0.5;
         document.getElementById('user-icon').style.filter= "alpha(opacity=50)";
-        
-    
-    };
+        document.getElementById('robot-icon').style.opacity = 0.5;
+        document.getElementById('robot-icon').style.filter= "alpha(opacity=50)";
+        };
     
     recognition.onerror = function(event) {
         message.textContent = 'Error occurred in recognition: ' + event.error;
-        // document.querySelector("#circlein").style.backgroundColor = null;
-        // document.getElementById('user-icon').style.opacity = 0.5;
-        // document.getElementById('user-icon').style.filter= "alpha(opacity=50)";
-        // document.getElementById('robot-icon').style.opacity = 0.5;
-        // document.getElementById('robot-icon').style.filter= "alpha(opacity=50)";
     }
-    
-    document.querySelector('#user-icon').addEventListener('click', function(){
-        recognition.start();
-        document.getElementById('words').innerHTML="";
-        // message.textContent = "";
-        document.querySelector("#circlein").style.backgroundColor = "#6BD6E1";
-    
-    });
     document.querySelector('#robot-icon').addEventListener('click', function(){
         recognition.stop();
         document.querySelector("#circlein").style.backgroundColor = null;
     
     });
-    document.querySelector('#circlein').addEventListener('click', function(){
-        recognition.stop();
-        document.querySelector("#circlein").style.backgroundColor = null;
-        document.getElementById('user-icon').style.opacity = 0.5;
-        document.getElementById('user-icon').style.filter= "alpha(opacity=50)";
-        document.getElementById('robot-icon').style.opacity = 0.5;
-        document.getElementById('robot-icon').style.filter= "alpha(opacity=50)";
-    });
-    document.querySelector('#words').addEventListener('click', function(){
-        document.getElementById('words').innerHTML="";
-    });
-
+//ham nay tu dong lviec khi click vao circlein, phai dat no trong userSpeechToText()
+document.querySelector('#circlein').addEventListener('click', function(){
+    recognition.stop();
+    // document.getElementById('words').innerHTML="";
+    document.querySelector("#circlein").style.backgroundColor = null;
+    document.getElementById('user-icon').style.opacity = 0.5;
+    document.getElementById('user-icon').style.filter= "alpha(opacity=50)";
+    document.getElementById('robot-icon').style.opacity = 0.5;
+    document.getElementById('robot-icon').style.filter= "alpha(opacity=50)";
+});
+//ham nay tu dong lviec khi click vao words, phai dat no trong userSpeechToText()
+document.querySelector('#words').addEventListener('click', function(){
+    recognition.stop();
+    document.getElementById('words').innerHTML="";
+    document.querySelector("#circlein").style.backgroundColor = null;
+    document.getElementById('user-icon').style.opacity = 0.5;
+    document.getElementById('user-icon').style.filter= "alpha(opacity=50)";
+    document.getElementById('robot-icon').style.opacity = 0.5;
+    document.getElementById('robot-icon').style.filter= "alpha(opacity=50)";
+});
 }
+
 //----------------------
 function say(textnoi,giongnoi){
     textnoi=catBoTextNoNeed(textnoi);
@@ -303,7 +304,7 @@ function xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl){
             document.getElementById("robot-icon").style.display = "none";
             document.getElementById("user-icon").style.display = "block";
             document.getElementById("circlein").style.display = "block";
-            userSpeechToText();
+            // userSpeechToText();
             iddluu=null;
             // alert('bd saycbvaoList');
             // saycbvaoList();
@@ -334,11 +335,11 @@ function xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl){
             document.getElementById("robot-icon").style.display = "none";
             document.getElementById("user-icon").style.display = "none";
             document.getElementById("circlein").style.display = "none";
-            userSpeechToText();
+            // userSpeechToText();
             iddluu=null;
             // alert('bd saycbvaoList');
             
-            saycbvaoList();
+            // saycbvaoList();
         }else{
             const tepmo = "./talking/b0.html";
             if (doesFileExist(tepmo)){
@@ -478,9 +479,10 @@ if (chonSlpaVl=='3'){
         document.getElementById("robot-icon").style.display = "none";
         document.getElementById("user-icon").style.display = "inline";
         document.getElementById("circlein").style.display = "block";
-        userSpeechToText();
+        // userSpeechToText();
         iddluu=null;
 
+        document.getElementById("ntalking").innerHTML="&ensp;";
 
         document.getElementById("words").innerHTML="";
 
@@ -507,6 +509,7 @@ if (chonSlpaVl=='3'){
         // iddluu=null;
 
         document.getElementById("words").innerHTML="";
+        document.getElementById("ntalking").innerHTML="&ensp;";
 
         document.getElementById('robot-icon').style.opacity = 0.5;
         document.getElementById('robot-icon').style.filter= "alpha(opacity=50)";
@@ -524,7 +527,8 @@ if (chonSlpaVl=='3'){
 }
 //-----------------
 function userIconClicked(){
-    //vua click userIconClicked thi tu dong ham reccognition.star hdong va lang nghe userv phat am
+    //cu moi lan click userIconClicked thi tu dong ham reccognition.star hdong va lang nghe userv phat am
+    userSpeechToText();
     document.getElementById('user-icon').style.opacity = 1;
     document.getElementById('user-icon').style.filter= "alpha(opacity=100)";
 
