@@ -60,6 +60,9 @@ nav{
     justify-content: space-between;
     align-items: top;
     color:brown;
+    margin-left: 3%;
+    margin-right: 3%;
+
 } 
 .footer{
     min-height: 14vh;
