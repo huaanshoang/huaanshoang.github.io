@@ -68,12 +68,16 @@ function themoptions(chonSlsoVl){
         values.push(i.toString());
     }
     var bselect = document.getElementById('unit_so');
+    while (bselect.length > 0) {
+        bselect.options[0].remove();
+    }
     values.forEach(value =>{
         var option = document.createElement('option');
         option.innerHTML = value;
         option.value = value;
         bselect.appendChild(option);
     })
+
     xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl);
 }
 //---global neu co su thay doi unit thi ham nay chay----------------------
