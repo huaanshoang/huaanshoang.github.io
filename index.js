@@ -28,10 +28,6 @@ var soptaLu=0;
 function chonSlso() {    
     if(document.getElementById('Sl_mot').checked) {   
         chonSlsoVl='1';
-        var uchon = document.getElementById("unit_so");
-        while (uchon.length > 0) {
-            uchon.options[0].remove();
-        }
         themoptions(chonSlsoVl);
         chonBaiStr='0';
         xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl);
@@ -39,20 +35,12 @@ function chonSlso() {
 
     if(document.getElementById('Sl_hai').checked) {   
         chonSlsoVl='2';
-        var uchon = document.getElementById("unit_so");
-        while (uchon.length > 0) {
-            uchon.options[0].remove();
-        }
         themoptions(chonSlsoVl);
         chonBaiStr='0';
         xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl);
     }   
     if(document.getElementById('Sl_ba').checked) {   
         chonSlsoVl='3';
-        var uchon = document.getElementById("unit_so");
-        while (uchon.length > 0) {
-            uchon.options[0].remove();
-        }
         themoptions(chonSlsoVl);
         chonBaiStr='0';
         xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl);   
