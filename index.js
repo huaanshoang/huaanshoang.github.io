@@ -66,7 +66,6 @@ function themoptions(chonSlsoVl){
         bselect.appendChild(option);
     })
 
-    xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl);
 }
 //---global neu co su thay doi unit thi ham nay chay----------------------
 var uchon = document.getElementById("unit_so");
