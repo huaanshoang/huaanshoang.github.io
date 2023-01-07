@@ -24,7 +24,7 @@
 }
 .strCuon{
     color:white;
-        text-align:center;
+    text-align:center;
 }
 .tenbai{
     color:yellow;
@@ -138,3 +138,9 @@ p {font-size: 14pt;}
     opacity: 1.0;  
     filter: alpha(opacity=100);
   }   */
+  #listen-icon, #speak-icon{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    border: none;
+  }
