@@ -562,10 +562,6 @@ function robotIconClicked(){
 //-----------ham chinh ---
 themoptions(chonSlsoVl)
 xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl);
-document.getElementById('listen-icon').style.opacity = 0.7
-document.getElementById('listen-icon').style.filter= "alpha(opacity=50)";
-document.getElementById('speak-icon').style.opacity = 0.7;
-document.getElementById('speak-icon').style.filter= "alpha(opacity=50)";
 
 document.getElementById("robot-icon").style.display = "none";
 document.getElementById("user-icon").style.display = "none";
