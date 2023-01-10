@@ -23,6 +23,8 @@ var diem=0;
 var tleptlamtron=0;
 var textnoi="";
 var soptaLu=0;
+var textdadich="";
+var nDocDich=0;
 //-------------------
 function chonSlso() {    
     if(document.getElementById('Sl_mot').checked) {   
@@ -296,7 +298,7 @@ function xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl){
         if (doesFileExist(tepmo) && chonBaiStr !== '0'){
             fetch(tepmo)
                 .then(reponse => reponse.text())
-                .then(text => document.getElementById("divActive").innerHTML="<p>Click on row below for reading</p>"+text);
+                .then(text => document.getElementById("divActive").innerHTML="<p id='docdich' onclick='chondochaydich()'>Click here to select Reading or Translating</p>"+text);
             document.getElementById("divActive").className='tudo';
             //doi mau lai f-grid-col
             var r = document.querySelector(':root');
@@ -327,7 +329,7 @@ function xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl){
         if (doesFileExist(tepmo) && chonBaiStr !== '0'){
             fetch(tepmo)
                 .then(reponse => reponse.text())
-                .then(text => document.getElementById("divActive").innerHTML="<p id='khoidongtalk' onclick='startTalk()'>Click here to select talk 1 or 2</p>"+text);
+                .then(text => document.getElementById("divActive").innerHTML="<p id='khoidongtalk' onclick='startTalk()'>Click here to select Speak 1 or 2</p>"+text);
             document.getElementById("divActive").className='tudo';
             iddluu=null;
             var r = document.querySelector(':root');
@@ -375,7 +377,13 @@ function layid(tenidl){
     iddluu=tenidl;
     var idSo = tenidl.slice(1); //ten id con lai sau khi bo di 1 ki tu. Vd 'b124' bo di 1 ki tu dau thi con lai 124 
     var message=document.getElementById(tenidl).innerHTML;
-    ndluu=message=document.getElementById(tenidl).innerHTML;
+    ndluu=message
+
+    message=catBoSpan(message);
+    if ((nDocDich % 2) == 1 && nDocDich>0){
+        translate_av(message);
+    }
+    
     for (let i = 1; i <= slrepeat; i++) {
         if (idSo % 2 == 0){giongnoi='en-GB';} else {giongnoi='en';}
             say(message, giongnoi);
@@ -558,10 +566,73 @@ function robotIconClicked(){
 
     //user nhan nut de tra loi
 }
+//-----------------------
+function translate_av(message){
+    let text=message;
+    // if(!message) return;
+    // const countries = {"en-GB": "English","vi-VN": "Vietnamese"};   
+    const toText = document.querySelector("#words");
+    // translateBtn = document.querySelector("button");
+    
+    // translateBtn.addEventListener("click", () => {
+    //     text = document.querySelector("#p1").textContent;
+    let translateFrom = "en-GB";
+    let translateTo = "vi-VN";
+    let apiUrl = `https://api.mymemory.translated.net/get?q=${text}&langpair=${translateFrom}|${translateTo}`;
 
+    fetch(apiUrl).then(res => res.json()).then(data => {
+        toText.textContent = data.responseData.translatedText;
+        data.matches.forEach(data => {
+            if(data.id === 0) {
+                toText.textContent = data.translation;
+            }
+        });
+        // alert(toText.textContent); //thong bao text da dich ra
+    });
+
+}
+//--------------------------
+function catBoSpan(message){
+
+    message=message.replaceAll('<span style="color:blue">', '');
+    message=message.replaceAll('<span style="color:red">', '');
+    message=message.replaceAll('</span>', '');
+    message=message.replaceAll('</strong>','');
+    message=message.replaceAll('<strong>','');
+    message=message.replaceAll("<em>","");
+    message=message.replaceAll("</em>","");
+    message=message.replaceAll("<u>","");
+    message=message.replaceAll("</u>","");
+    message=message.replaceAll('<span style="color:#0070C0"','');
+    message=message.replaceAll('<span lang="EN" style="color:#0070C0"','');
+    message=message.slice(message.indexOf(":")+1,message.lenght);
+    message=message.trim();
+    return message;
+}
+//------------------------
+function chondochaydich(){
+    if (chonSlpaVl=='2'){    
+        if ((nDocDich % 2) == 0){
+            nDocDich = nDocDich + 1;
+            document.getElementById("docdich").innerHTML="For Reading & Translating (click on rows)";
+            document.getElementById("docdich").style.color = "blue";
+            document.getElementById("words").innerHTML="";
+        }else{
+            nDocDich = nDocDich + 1;
+            document.getElementById("docdich").innerHTML="Only for Reading (click on rows)";
+            document.getElementById("docdich").style.color = "green";
+            document.getElementById("words").innerHTML="";
+        }    
+    }
+}
+    
 //-----------ham chinh ---
 themoptions(chonSlsoVl)
 xuliviechoc(chonSlsoVl,chonBaiStr,chonSlpaVl);
+// document.getElementById('listen-icon').style.opacity = .7;
+// document.getElementById('listen-icon').style.filter= "alpha(opacity=50)";
+document.getElementById('speak-icon').style.opacity = .7;
+document.getElementById('speak-icon').style.filter= "alpha(opacity=50)";
 
 document.getElementById("robot-icon").style.display = "none";
 document.getElementById("user-icon").style.display = "none";
